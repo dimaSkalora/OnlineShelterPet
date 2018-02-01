@@ -1,6 +1,8 @@
 package com.online.shelter.pet.servlet.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Animal {
     private final LocalDateTime dateTime;
@@ -78,6 +80,14 @@ public class Animal {
 
     public String getEmail() {
         return email;
+    }
+
+    public LocalDate getDate() {
+        return dateTime.toLocalDate();
+    }
+
+    public LocalTime getTime() {
+        return dateTime.toLocalTime();
     }
 
     @Override
