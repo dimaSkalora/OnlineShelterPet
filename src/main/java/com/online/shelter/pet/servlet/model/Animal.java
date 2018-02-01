@@ -12,14 +12,14 @@ public class Animal {
     private final char sex;
     private final String color;
     private final double age;
-    private final double growth;
+    private final int growth;
     private final double weight;
 
     private final String namePerson;
     private final String phone;
     private final String email;
 
-    public Animal(LocalDateTime dateTime, String typeAnimal, String nameAnimal, String breed, char sex, String color, double age, double growth, double weight, String namePerson, String phone, String email) {
+    public Animal(LocalDateTime dateTime, String typeAnimal, String nameAnimal, String breed, char sex, String color, double age, int growth, double weight, String namePerson, String phone, String email) {
         this.dateTime = dateTime;
         this.typeAnimal = typeAnimal;
         this.nameAnimal = nameAnimal;
@@ -62,7 +62,7 @@ public class Animal {
         return age;
     }
 
-    public double getGrowth() {
+    public int getGrowth() {
         return growth;
     }
 
