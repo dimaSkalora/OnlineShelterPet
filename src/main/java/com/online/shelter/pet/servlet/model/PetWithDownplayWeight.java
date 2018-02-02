@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 public class PetWithDownplayWeight {
     private final LocalDate createdDate;
-    private final String typeAnimal;
-    private final String nameAnimal;
+    private final String typePet;
+    private final String namePet;
     private final String breed;
     private final char sex;
     private final String color;
@@ -19,10 +19,10 @@ public class PetWithDownplayWeight {
 
     private final boolean downplayWeight;
 
-    public PetWithDownplayWeight(LocalDate createdDate, String typeAnimal, String nameAnimal, String breed, char sex, String color, double age, int growth, double weight, String namePerson, String phone, String email, boolean downplayWeight) {
+    public PetWithDownplayWeight(LocalDate createdDate, String typePet, String namePet, String breed, char sex, String color, double age, int growth, double weight, String namePerson, String phone, String email, boolean downplayWeight) {
         this.createdDate = createdDate;
-        this.typeAnimal = typeAnimal;
-        this.nameAnimal = nameAnimal;
+        this.typePet = typePet;
+        this.namePet = namePet;
         this.breed = breed;
         this.sex = sex;
         this.color = color;
@@ -39,8 +39,8 @@ public class PetWithDownplayWeight {
     public String toString() {
         return "PetWithDownplayWeight{" +
                 "createdDate=" + createdDate +
-                ", typeAnimal='" + typeAnimal + '\'' +
-                ", nameAnimal='" + nameAnimal + '\'' +
+                ", typePet='" + typePet + '\'' +
+                ", namePet='" + namePet + '\'' +
                 ", breed='" + breed + '\'' +
                 ", sex=" + sex +
                 ", color='" + color + '\'' +
