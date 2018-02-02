@@ -1,13 +1,11 @@
 package com.online.shelter.pet.servlet.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
-public class Animal {
-    private final LocalDateTime dateTime;
-    private final String typeAnimal;
-    private final String nameAnimal;
+public class Pet {
+    private final LocalDate createdDate;
+    private final String typePet;
+    private final String namePet;
     private final String breed;
     private final char sex;
     private final String color;
@@ -19,10 +17,10 @@ public class Animal {
     private final String phone;
     private final String email;
 
-    public Animal(LocalDateTime dateTime, String typeAnimal, String nameAnimal, String breed, char sex, String color, double age, int growth, double weight, String namePerson, String phone, String email) {
-        this.dateTime = dateTime;
-        this.typeAnimal = typeAnimal;
-        this.nameAnimal = nameAnimal;
+    public Pet(LocalDate createdDate, String typePet, String namePet, String breed, char sex, String color, double age, int growth, double weight, String namePerson, String phone, String email) {
+        this.createdDate = createdDate;
+        this.typePet = typePet;
+        this.namePet = namePet;
         this.breed = breed;
         this.sex = sex;
         this.color = color;
@@ -34,16 +32,16 @@ public class Animal {
         this.email = email;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDate getCreatedDate() {
+        return createdDate;
     }
 
-    public String getTypeAnimal() {
-        return typeAnimal;
+    public String getTypePet() {
+        return typePet;
     }
 
-    public String getNameAnimal() {
-        return nameAnimal;
+    public String getNamePet() {
+        return namePet;
     }
 
     public String getBreed() {
@@ -82,20 +80,13 @@ public class Animal {
         return email;
     }
 
-    public LocalDate getDate() {
-        return dateTime.toLocalDate();
-    }
-
-    public LocalTime getTime() {
-        return dateTime.toLocalTime();
-    }
 
     @Override
     public String toString() {
-        return "Animal{" +
-                "dateTime=" + dateTime +
-                ", typeAnimal='" + typeAnimal + '\'' +
-                ", nameAnimal='" + nameAnimal + '\'' +
+        return "Pet{" +
+                "createdDate=" + createdDate +
+                ", typePet='" + typePet + '\'' +
+                ", namePet='" + namePet + '\'' +
                 ", breed='" + breed + '\'' +
                 ", sex=" + sex +
                 ", color='" + color + '\'' +

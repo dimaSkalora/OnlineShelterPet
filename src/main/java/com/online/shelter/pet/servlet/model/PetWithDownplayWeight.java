@@ -1,9 +1,9 @@
 package com.online.shelter.pet.servlet.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
-public class AnimalWithDownplayWeight {
-    private final LocalDateTime dateTime;
+public class PetWithDownplayWeight {
+    private final LocalDate createdDate;
     private final String typeAnimal;
     private final String nameAnimal;
     private final String breed;
@@ -19,8 +19,8 @@ public class AnimalWithDownplayWeight {
 
     private final boolean downplayWeight;
 
-    public AnimalWithDownplayWeight(LocalDateTime dateTime, String typeAnimal, String nameAnimal, String breed, char sex, String color, double age, int growth, double weight, String namePerson, String phone, String email, boolean downplayWeight) {
-        this.dateTime = dateTime;
+    public PetWithDownplayWeight(LocalDate createdDate, String typeAnimal, String nameAnimal, String breed, char sex, String color, double age, int growth, double weight, String namePerson, String phone, String email, boolean downplayWeight) {
+        this.createdDate = createdDate;
         this.typeAnimal = typeAnimal;
         this.nameAnimal = nameAnimal;
         this.breed = breed;
@@ -37,8 +37,8 @@ public class AnimalWithDownplayWeight {
 
     @Override
     public String toString() {
-        return "AnimalWithDownplayWeight{" +
-                "dateTime=" + dateTime +
+        return "PetWithDownplayWeight{" +
+                "createdDate=" + createdDate +
                 ", typeAnimal='" + typeAnimal + '\'' +
                 ", nameAnimal='" + nameAnimal + '\'' +
                 ", breed='" + breed + '\'' +
