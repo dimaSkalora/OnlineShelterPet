@@ -29,10 +29,10 @@ public class PetUtil {
                 ,"Dog","d1","авчарка",'m',"белый",2,50,40.5,"вова","0731234567","aedc@ds"));
 
         System.out.println("Полный список");
-         pets.stream()
+        pets.stream()
                .forEach(pet-> System.out.println(pet));
         System.out.println("Отфильтрованый список(getFilteredWithDownplayWeight)");
-        List<PetWithDownplayWeight> petWithDownplayWeights = getFilteredWithDownplayWeight(pets,"Cat",0.2);
+        List<PetWithDownplayWeight> petWithDownplayWeights = getFilteredWithDownplayWeight(pets,Arrays.asList("","Cat",""),0.2);
         petWithDownplayWeights.forEach(System.out::println);
 
         System.out.println("Отфильтрованый список(getFilteredWithDownplayWeightByCycle)");
@@ -44,7 +44,6 @@ public class PetUtil {
     public static List<PetWithDownplayWeight> getWithDownplayWeight(List<Pet> pets, String typePet, double normalWeight ){
 
           return pets.stream()
-                .filter(pet -> pet.getTypePet().equals(typePet))
                 .map(pet -> createWithDownplayWeight(pet, pet.getWeight()/(pet.getGrowth()*2) < normalWeight))
                 .collect(Collectors.toList());
 
@@ -63,10 +62,11 @@ public class PetUtil {
     }
 
     //Ворма расчёта нормального веса с фильтром - вес/(рост*2)
-    public static List<PetWithDownplayWeight> getFilteredWithDownplayWeight(List<Pet> pets, String typePet, double normalWeight ){
+    public static List<PetWithDownplayWeight> getFilteredWithDownplayWeight(List<Pet> pets, List<String> typePets, double normalWeight ){
 
           return pets.stream()
-                .filter(pet -> pet.getTypePet().equals(typePet))
+                .filter(pet -> pet.getTypePet().equals(typePets.get(0))
+                || pet.getTypePet().equals(typePets.get(1)) || pet.getTypePet().equals(typePets.get(2)))
                 .map(pet -> createWithDownplayWeight(pet, pet.getWeight()/(pet.getGrowth()*2) < normalWeight))
                 .collect(Collectors.toList());
 
