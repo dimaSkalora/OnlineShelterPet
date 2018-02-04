@@ -35,6 +35,58 @@ public class PetWithDownplayWeight {
         this.downplayWeight = downplayWeight;
     }
 
+    public LocalDate getCreatedDate() {
+        return createdDate;
+    }
+
+    public String getTypePet() {
+        return typePet;
+    }
+
+    public String getNamePet() {
+        return namePet;
+    }
+
+    public String getBreed() {
+        return breed;
+    }
+
+    public char getSex() {
+        return sex;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public double getAge() {
+        return age;
+    }
+
+    public int getGrowth() {
+        return growth;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public String getNamePerson() {
+        return namePerson;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public boolean isDownplayWeight() {
+        return downplayWeight;
+    }
+
     @Override
     public String toString() {
         return "PetWithDownplayWeight{" +
