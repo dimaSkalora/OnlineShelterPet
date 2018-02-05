@@ -85,10 +85,6 @@ public class Pet extends AbstractBaseEntity{
         return email;
     }
 
-    public boolean isNew(){
-        return this.id == null;
-    }
-
     @Override
     public String toString() {
         return "Pet{" +
