@@ -20,6 +20,7 @@
 <section>
     <h3><a href="index.html">Home</a> </h3>
     <h2>Pets</h2>
+    <a href="pets?action=create">Add Pet</a>
     <hr/>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
@@ -36,6 +37,8 @@
             <th>NmePerson</th>
             <th>Phone</th>
             <th>Email</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -58,6 +61,8 @@
                 <td>${pet.namePerson}</td>
                 <td>${pet.phone}</td>
                 <td>${pet.email}</td>
+                <td><a href="pets?action=update&id=${pet.id}">Update</a></td>
+                <td><a href="pets?action=delete&id=${pet.id}">Delete</a></td>
             </tr>
         </c:forEach>
         </tbody>

@@ -3,11 +3,12 @@ package com.online.shelter.pet.servlet.model;
 import java.time.LocalDate;
 
 public class Pet {
+    private Integer id;
     private final LocalDate createdDate;
     private final String typePet;
     private final String namePet;
     private final String breed;
-    private final char sex;
+    private final String sex;
     private final String color;
     private final double age;
     private final int growth;
@@ -17,7 +18,12 @@ public class Pet {
     private final String phone;
     private final String email;
 
-    public Pet(LocalDate createdDate, String typePet, String namePet, String breed, char sex, String color, double age, int growth, double weight, String namePerson, String phone, String email) {
+    public Pet(LocalDate createdDate, String typePet, String namePet, String breed, String sex, String color, double age, int growth, double weight, String namePerson, String phone, String email) {
+      this(null, createdDate, typePet, namePet, breed, sex, color, age, growth, weight, namePerson, phone, email);
+    }
+
+    public Pet(Integer id, LocalDate createdDate, String typePet, String namePet, String breed, String sex, String color, double age, int growth, double weight, String namePerson, String phone, String email) {
+        this.id = id;
         this.createdDate = createdDate;
         this.typePet = typePet;
         this.namePet = namePet;
@@ -30,6 +36,14 @@ public class Pet {
         this.namePerson = namePerson;
         this.phone = phone;
         this.email = email;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public LocalDate getCreatedDate() {
@@ -48,7 +62,7 @@ public class Pet {
         return breed;
     }
 
-    public char getSex() {
+    public String getSex() {
         return sex;
     }
 
@@ -80,11 +94,15 @@ public class Pet {
         return email;
     }
 
+    public boolean isNew(){
+        return this.id == null;
+    }
 
     @Override
     public String toString() {
         return "Pet{" +
-                "createdDate=" + createdDate +
+                "id=" + id +
+                ", createdDate=" + createdDate +
                 ", typePet='" + typePet + '\'' +
                 ", namePet='" + namePet + '\'' +
                 ", breed='" + breed + '\'' +
@@ -94,7 +112,7 @@ public class Pet {
                 ", growth=" + growth +
                 ", weight=" + weight +
                 ", namePerson='" + namePerson + '\'' +
-                ", phone=" + phone +
+                ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }
