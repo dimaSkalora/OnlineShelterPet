@@ -19,10 +19,13 @@ public class InMemoryPetRepository implements PetRepository {
     }
     @Override
     public Pet save(Pet pet) {
-        if(pet.isNew())
+        if(pet.isNew()){
             pet.setId(counter.incrementAndGet());
-        repository.put(pet.getId(),pet);
-        return pet;
+            repository.put(pet.getId(),pet);
+            return pet;
+        }
+        // treat case: update, but absent in storage
+        return repository.computeIfPresent(pet.getId(),(id,oldPet)->pet);
     }
 
     @Override

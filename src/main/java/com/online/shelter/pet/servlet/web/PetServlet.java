@@ -35,8 +35,8 @@ public class PetServlet extends HttpServlet {
         Pet pet = new Pet(id.isEmpty() ? null : Integer.valueOf(id),
                 LocalDate.parse(req.getParameter("createDate")),
                 req.getParameter("typePet"),req.getParameter("namePet"), req.getParameter("breed"),
-                req.getParameter("sex"), req.getParameter("color"), Double.valueOf(req.getParameter("age")),
-                Integer.valueOf(req.getParameter("growth")), Double.valueOf(req.getParameter("weight")),
+                req.getParameter("sex"), req.getParameter("color"), Double.parseDouble(req.getParameter("age")),
+                Integer.parseInt(req.getParameter("growth")), Double.parseDouble(req.getParameter("weight")),
                 req.getParameter("namePerson"),req.getParameter("phone"),req.getParameter("email"));
 
         logger.info(pet.isNew() ? "Create{}" : "Update{}",pet);
@@ -73,6 +73,6 @@ public class PetServlet extends HttpServlet {
 
     private int getId(HttpServletRequest request){
         String paramId = Objects.requireNonNull(request.getParameter("id"));
-        return Integer.valueOf(paramId);
+        return Integer.parseInt(paramId);
     }
 }

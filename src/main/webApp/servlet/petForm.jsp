@@ -32,12 +32,12 @@
         <input type="hidden" name="id" value="${pet.id}">
         <dl>
             <dt>Create Date:</dt>
-            <dd><input type="date" value="${pet.createdDate}" name = "createDate"></dd>
+            <dd><input type="date" value="${pet.createdDate}" name = "createDate" required></dd>
         </dl>
         <dl>
             <dt>Type Pet:</dt>
            <%-- <dd><input type="text" value="${pet.typePet}" size="50" name = "typePet"></dd>--%>
-            <dd><select name="typePet">
+            <dd><select name="typePet" required>
                 <option>Cat</option>
                 <option>Dog</option>
                 <option>Others</option>
@@ -45,43 +45,43 @@
         </dl>
         <dl>
             <dt>Name Pet:</dt>
-            <dd><input type="text" value="${meal.namePet}"size="50" name="namePet"></dd>
+            <dd><input type="text" value="${meal.namePet}"size="20" name="namePet" required></dd>
         </dl>
         <dl>
             <dt>Breed:</dt>
-            <dd><input type="text" value="${meal.breed}"size="15" name="breed"></dd>
+            <dd><input type="text" value="${meal.breed}"size="15" name="breed" required></dd>
         </dl>
         <dl>
             <dt>Sex:</dt>
-            <dd><input type="text" value="${meal.sex}"size="1" name="sex"></dd>
+            <dd><input type="text" value="${meal.sex}"size="1" name="sex" required></dd>
         </dl>
         <dl>
             <dt>Color:</dt>
-            <dd><input type="text" value="${meal.color}"size="15" name="color"></dd>
+            <dd><input type="text" value="${meal.color}"size="15" name="color" required></dd>
         </dl>
         <dl>
             <dt>Age:</dt>
-            <dd><input type="step" value="${meal.age}" name="age"></dd>
+            <dd><input type="step" value="${meal.age}" name="age" required></dd>
         </dl>
         <dl>
             <dt>Growth:</dt>
-            <dd><input type="number" value="${meal.growth}" name="growth"></dd>
+            <dd><input type="number" value="${meal.growth}" name="growth" required></dd>
         </dl>
         <dl>
             <dt>Weight:</dt>
-            <dd><input type="step" value="${meal.weight}" name="weight"></dd>
+            <dd><input type="step" value="${meal.weight}" name="weight" required></dd>
         </dl>
         <dl>
             <dt>Name Person:</dt>
-            <dd><input type="text" value="${meal.namePerson}"  size="15" name="namePerson"></dd>
+            <dd><input type="text" value="${meal.namePerson}"  size="15" name="namePerson" required></dd>
         </dl>
         <dl>
             <dt>Phone:</dt>
-            <dd><input type="tel" value="${meal.phone}"  size="20" name="phone"></dd>
+            <dd><input type="tel" value="${meal.phone}"  size="20" name="phone" required></dd>
         </dl>
         <dl>
             <dt>Email:</dt>
-            <dd><input type="email" value="${meal.email}"  size="20" name="email"></dd>
+            <dd><input type="email" value="${meal.email}"  size="20" name="email" required></dd>
         </dl>
         <button type="submit">Save</button>
         <button onclick="window.history.back()" type="button">Cancel</button>
