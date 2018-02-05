@@ -13,12 +13,13 @@ import static com.online.shelter.pet.servlet.util.ValidationUtil.checkNotFoundWi
 
 @Service
 public class UserServiceImpl implements UserService{
-    @Autowired
+
     private UserRepository repository;
 
-  /*  public void setRepository(UserRepository repository) {
+    @Autowired
+    public UserServiceImpl(UserRepository repository) {
         this.repository = repository;
-    }*/
+    }
 
     @Override
     public User create(User user) {
