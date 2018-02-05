@@ -1,7 +1,8 @@
 package com.online.shelter.pet.servlet.web;
 
+import com.online.shelter.pet.servlet.AuthorizedUser;
 import com.online.shelter.pet.servlet.model.Pet;
-import com.online.shelter.pet.servlet.repository.mock.InMemoryPetRepository;
+import com.online.shelter.pet.servlet.repository.mock.InMemoryPetRepositoryImpl;
 import com.online.shelter.pet.servlet.repository.PetRepository;
 import com.online.shelter.pet.servlet.util.PetUtil;
 import org.slf4j.Logger;
@@ -24,7 +25,7 @@ public class PetServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        repository = new InMemoryPetRepository();
+        repository = new InMemoryPetRepositoryImpl();
     }
 
     @Override
@@ -40,7 +41,7 @@ public class PetServlet extends HttpServlet {
                 req.getParameter("namePerson"),req.getParameter("phone"),req.getParameter("email"));
 
         logger.info(pet.isNew() ? "Create{}" : "Update{}",pet);
-        repository.save(pet);
+        repository.save(pet, AuthorizedUser.id());
         resp.sendRedirect("pets");
     }
 
@@ -52,13 +53,13 @@ public class PetServlet extends HttpServlet {
             case "delete":
                 int id = getId(req);
                 logger.info("Delete {}",id);
-                repository.delete(id);
+                repository.delete(id,AuthorizedUser.id());
                 resp.sendRedirect("pets");
             case "create":
             case "update":
                 final Pet pet = "create".equals(action)?
                         new Pet(LocalDate.now(),"","","","","",0,0,0,"","","") :
-                        repository.get(getId(req));
+                        repository.get(getId(req),AuthorizedUser.id());
                 req.setAttribute("pet",pet);
                 req.getRequestDispatcher("/petForm.jsp").forward(req,resp);
                 break;
@@ -66,7 +67,7 @@ public class PetServlet extends HttpServlet {
             default:
                 logger.info("getAll");
                 req.setAttribute("pets",
-                        PetUtil.getWithDownplayWeight(repository.getAll(),PetUtil.DEFAULT_NOLMAL_WEIGHT));
+                        PetUtil.getWithDownplayWeight(repository.getAll(AuthorizedUser.id()),PetUtil.DEFAULT_NOLMAL_WEIGHT));
                 req.getRequestDispatcher("/pets.jsp").forward(req,resp);
         }
     }

@@ -2,11 +2,19 @@ package com.online.shelter.pet.servlet.repository;
 
 import com.online.shelter.pet.servlet.model.Pet;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface PetRepository {
-    Pet save(Pet pet);
-    void delete(int id);
-    Pet get(int id);
-    Collection<Pet> getAll();
+    // null if updated pet do not belong to userId
+    Pet save(Pet pet, int userId);
+
+    // false if pet do not belong to userId
+    boolean delete(int id, int userId);
+
+    // null if pet do not belong to userId
+    Pet get(int id, int userId);
+
+    // ORDERED dateTime desc
+    List<Pet> getAll(int userId);
+
 }
