@@ -1,7 +1,7 @@
 package com.online.shelter.pet.servlet.web;
 
 import com.online.shelter.pet.servlet.model.Pet;
-import com.online.shelter.pet.servlet.repository.InMemoryPetRepository;
+import com.online.shelter.pet.servlet.repository.mock.InMemoryPetRepository;
 import com.online.shelter.pet.servlet.repository.PetRepository;
 import com.online.shelter.pet.servlet.util.PetUtil;
 import org.slf4j.Logger;

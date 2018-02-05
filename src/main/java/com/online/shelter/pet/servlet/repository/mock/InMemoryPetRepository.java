@@ -1,6 +1,7 @@
-package com.online.shelter.pet.servlet.repository;
+package com.online.shelter.pet.servlet.repository.mock;
 
 import com.online.shelter.pet.servlet.model.Pet;
+import com.online.shelter.pet.servlet.repository.PetRepository;
 import com.online.shelter.pet.servlet.util.PetUtil;
 
 import java.util.Collection;
