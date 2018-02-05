@@ -7,7 +7,7 @@ public class AuthorizedUser {
         return 1;
     }
 
-    public static double getCaloriesPerDay() {
+    public static double getNormalWeight() {
         return DEFAULT_NOLMAL_WEIGHT;
     }
 }

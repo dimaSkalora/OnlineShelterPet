@@ -43,7 +43,7 @@
         </thead>
         <tbody>
         <c:forEach items="${pets}" var="pet">
-            <jsp:useBean id="pet" scope="page" type="com.online.shelter.pet.servlet.model.PetWithDownplayWeight"/>
+            <jsp:useBean id="pet" scope="page" type="com.online.shelter.pet.servlet.to.PetWithDownplayWeight"/>
             <tr class="${pet.downplayWeight ? 'reduced' : 'normal'}">
                 <td>
                         <%--<%=DateTimeUtil.toString(pet.getCreatedDate())%>--%>

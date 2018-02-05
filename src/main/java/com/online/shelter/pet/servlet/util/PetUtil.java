@@ -1,14 +1,12 @@
 package com.online.shelter.pet.servlet.util;
 
 import com.online.shelter.pet.servlet.model.Pet;
-import com.online.shelter.pet.servlet.model.PetWithDownplayWeight;
+import com.online.shelter.pet.servlet.to.PetWithDownplayWeight;
 
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 public class PetUtil {
@@ -44,6 +42,12 @@ public class PetUtil {
 
     }
 
+    public static PetWithDownplayWeight createWithDownplayWeight(Pet pet, boolean downplayWeight) {
+        return new PetWithDownplayWeight(pet.getId(),pet.getCreatedDate(),pet.getTypePet(),pet.getNamePet()
+                , pet.getBreed(), pet.getSex(), pet.getColor(), pet.getAge(), pet.getGrowth()
+                ,pet.getWeight(), pet.getNamePerson(), pet.getPhone(), pet.getEmail(), downplayWeight);
+    }
+
 /*    //отобрасить список PetWithDownplayWeight
     public static List<PetWithDownplayWeight> getWithDownplayWeight(Collection<Pet> pets, double normalWeight){
         return getFilteredWithDownplayWeight(pets,"Cat",normalWeight);
@@ -61,11 +65,7 @@ public class PetUtil {
 
 
 
-    public static PetWithDownplayWeight createWithDownplayWeight(Pet pet, boolean downplayWeight) {
-        return new PetWithDownplayWeight(pet.getId(),pet.getCreatedDate(),pet.getTypePet(),pet.getNamePet()
-                , pet.getBreed(), pet.getSex(), pet.getColor(), pet.getAge(), pet.getGrowth()
-                ,pet.getWeight(), pet.getNamePerson(), pet.getPhone(), pet.getEmail(), downplayWeight);
-    }
+
 /*
     //Ворма расчёта нормального веса - вес/(рост*2)
     public static List<PetWithDownplayWeight> getWithDownplayWeight(List<Pet> pets, String typePet, double normalWeight ){

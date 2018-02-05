@@ -3,10 +3,10 @@ package com.online.shelter.pet.servlet.repository.mock;
 import com.online.shelter.pet.servlet.model.Pet;
 import com.online.shelter.pet.servlet.repository.PetRepository;
 import com.online.shelter.pet.servlet.util.PetUtil;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +18,7 @@ import java.util.stream.Stream;
 import static com.online.shelter.pet.servlet.repository.mock.InMemoryUserRepositoryImpl.ADMIN_ID;
 import static com.online.shelter.pet.servlet.repository.mock.InMemoryUserRepositoryImpl.USER_ID;
 
+@Repository
 public class InMemoryPetRepositoryImpl implements PetRepository {
 
     // Map  userId -> (petId-> pet)

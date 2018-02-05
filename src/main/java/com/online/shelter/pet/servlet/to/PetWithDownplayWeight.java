@@ -1,4 +1,4 @@
-package com.online.shelter.pet.servlet.model;
+package com.online.shelter.pet.servlet.to;
 
 import java.time.LocalDate;
 

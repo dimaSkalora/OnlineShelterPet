@@ -2,8 +2,7 @@ package com.online.shelter.pet.servlet.model;
 
 import java.time.LocalDate;
 
-public class Pet {
-    private Integer id;
+public class Pet extends AbstractBaseEntity{
     private final LocalDate createdDate;
     private final String typePet;
     private final String namePet;
@@ -23,7 +22,7 @@ public class Pet {
     }
 
     public Pet(Integer id, LocalDate createdDate, String typePet, String namePet, String breed, String sex, String color, double age, int growth, double weight, String namePerson, String phone, String email) {
-        this.id = id;
+        super(id);
         this.createdDate = createdDate;
         this.typePet = typePet;
         this.namePet = namePet;
@@ -36,14 +35,6 @@ public class Pet {
         this.namePerson = namePerson;
         this.phone = phone;
         this.email = email;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public LocalDate getCreatedDate() {
