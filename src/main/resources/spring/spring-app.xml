@@ -4,4 +4,7 @@
 
     <bean class="com.online.shelter.pet.servlet.repository.mock.MockUserRepositoryImpl" id="mockUserRepository"/>
 
+    <bean class="com.online.shelter.pet.servlet.service.UserServiceImpl">
+        <property name="repository" ref="mockUserRepository"/>
+    </bean>
 </beans>
