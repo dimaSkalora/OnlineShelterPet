@@ -46,8 +46,10 @@
             <jsp:useBean id="pet" scope="page" type="com.online.shelter.pet.servlet.to.PetWithDownplayWeight"/>
             <tr class="${pet.downplayWeight ? 'reduced' : 'normal'}">
                 <td>
+                        <%--${pet.dateTime.toLocalDate()} ${pet.dateTime.toLocalTime()}--%>
                         <%--<%=DateTimeUtil.toString(pet.getCreatedDate())%>--%>
-                        ${fn:formatDate(pet.createdDate)}
+                                <%--${fn:replace(pet.dateTime, 'T', ' ')}--%>
+                        ${fn:formatDateTime(pet.createdDate)}
                 <%--    ${pet.createdDate}--%>
                 </td>
                 <td>${pet.typePet}</td>

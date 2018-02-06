@@ -1,9 +1,11 @@
 package com.online.shelter.pet.servlet.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Pet extends AbstractBaseEntity{
-    private final LocalDate createdDate;
+    private final LocalDateTime createdDate;
     private final String typePet;
     private final String namePet;
     private final String breed;
@@ -17,11 +19,11 @@ public class Pet extends AbstractBaseEntity{
     private final String phone;
     private final String email;
 
-    public Pet(LocalDate createdDate, String typePet, String namePet, String breed, String sex, String color, double age, int growth, double weight, String namePerson, String phone, String email) {
+    public Pet(LocalDateTime createdDate, String typePet, String namePet, String breed, String sex, String color, double age, int growth, double weight, String namePerson, String phone, String email) {
       this(null, createdDate, typePet, namePet, breed, sex, color, age, growth, weight, namePerson, phone, email);
     }
 
-    public Pet(Integer id, LocalDate createdDate, String typePet, String namePet, String breed, String sex, String color, double age, int growth, double weight, String namePerson, String phone, String email) {
+    public Pet(Integer id, LocalDateTime createdDate, String typePet, String namePet, String breed, String sex, String color, double age, int growth, double weight, String namePerson, String phone, String email) {
         super(id);
         this.createdDate = createdDate;
         this.typePet = typePet;
@@ -37,8 +39,16 @@ public class Pet extends AbstractBaseEntity{
         this.email = email;
     }
 
-    public LocalDate getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
+    }
+
+    public LocalDate getDate() {
+        return createdDate.toLocalDate();
+    }
+
+    public LocalTime getTime() {
+        return createdDate.toLocalTime();
     }
 
     public String getTypePet() {

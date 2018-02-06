@@ -2,6 +2,7 @@ package com.online.shelter.pet.servlet.repository;
 
 import com.online.shelter.pet.servlet.model.Pet;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface PetRepository {
@@ -16,5 +17,8 @@ public interface PetRepository {
 
     // ORDERED dateTime desc
     List<Pet> getAll(int userId);
+
+    // ORDERED dateTime desc
+    List<Pet> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId);
 
 }

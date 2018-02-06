@@ -9,8 +9,8 @@
     <uri>http://onlineShelterPet.com/functions</uri>
 
     <function>
-        <name>formatDate</name>
+        <name>formatDateTime</name>
         <function-class>com.online.shelter.pet.servlet.util.DateTimeUtil</function-class>
-        <function-signature>java.lang.String toString(java.time.LocalDate)</function-signature>
+        <function-signature>java.lang.String toString(java.time.LocalDateTime)</function-signature>
     </function>
 </taglib>

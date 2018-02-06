@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class PetServlet extends HttpServlet {
@@ -36,7 +38,7 @@ public class PetServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        Pet pet = new Pet(LocalDate.parse(request.getParameter("createDate")),
+        Pet pet = new Pet(LocalDateTime.parse(request.getParameter("createDate")),
                 request.getParameter("typePet"),request.getParameter("namePet"), request.getParameter("breed"),
                 request.getParameter("sex"), request.getParameter("color"), Double.parseDouble(request.getParameter("age")),
                 Integer.parseInt(request.getParameter("growth")), Double.parseDouble(request.getParameter("weight")),
@@ -62,7 +64,7 @@ public class PetServlet extends HttpServlet {
             case "create":
             case "update":
                 final Pet pet = "create".equals(action) ?
-                        new Pet(LocalDate.now(),"","","","","",0,0,0,"","","") :
+                        new Pet(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES),"","","","","",0,0,0,"","","") :
                         petController.get(getId(request));
                 request.setAttribute("pet",pet);
                 request.getRequestDispatcher("/petForm.jsp").forward(request,response);

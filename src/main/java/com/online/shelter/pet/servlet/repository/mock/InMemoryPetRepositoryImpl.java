@@ -2,10 +2,12 @@ package com.online.shelter.pet.servlet.repository.mock;
 
 import com.online.shelter.pet.servlet.model.Pet;
 import com.online.shelter.pet.servlet.repository.PetRepository;
+import com.online.shelter.pet.servlet.util.DateTimeUtil;
 import com.online.shelter.pet.servlet.util.PetUtil;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Comparator;
 import java.util.List;
@@ -28,10 +30,10 @@ public class InMemoryPetRepositoryImpl implements PetRepository {
     {
         //PetUtil.PETS.forEach(pet->save(pet));
         PetUtil.PETS.forEach(pet -> save(pet,USER_ID));
-        save( new Pet(LocalDate.of(2018,Month.FEBRUARY,5)
+        save( new Pet(LocalDateTime.of(2018,Month.FEBRUARY,5,10,0)
                 ,"Cat","caty","бразил","w","коричневый",
                 1.8,18,4,"люда","0671234567","aeqe@eqwd"),ADMIN_ID);
-        save( new Pet(LocalDate.of(2018,Month.FEBRUARY,5)
+        save( new Pet(LocalDateTime.of(2018,Month.FEBRUARY,5,18,0)
                 ,"Dog","dogy","бразил","m","коричневый",
                 1.8,15,4,"anna","0489449494","aeqsfsdre@eqwd"),ADMIN_ID);
 
@@ -63,6 +65,13 @@ public class InMemoryPetRepositoryImpl implements PetRepository {
     @Override
     public List<Pet> getAll(int userId) {
         return getAllAsStream(userId).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Pet> getBetween(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId) {
+        return getAllAsStream(userId)
+                .filter(pet -> DateTimeUtil.isBetween(pet.getCreatedDate(), startDateTime, endDateTime))
+                .collect(Collectors.toList());
     }
 
     private Stream<Pet> getAllAsStream(int userId) {

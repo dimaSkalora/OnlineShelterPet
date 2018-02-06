@@ -32,7 +32,7 @@
         <input type="hidden" name="id" value="${pet.id}">
         <dl>
             <dt>Create Date:</dt>
-            <dd><input type="date" value="${pet.createdDate}" name = "createDate" required></dd>
+            <dd><input type="datetime-local" value="${pet.createdDate}" name = "createDate" required></dd>
         </dl>
         <dl>
             <dt>Type Pet:</dt>

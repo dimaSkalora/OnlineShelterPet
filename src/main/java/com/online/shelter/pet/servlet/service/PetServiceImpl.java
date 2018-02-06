@@ -6,6 +6,7 @@ import com.online.shelter.pet.servlet.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import static com.online.shelter.pet.servlet.util.ValidationUtil.checkNotFoundWithId;
 
@@ -26,6 +27,11 @@ public class PetServiceImpl implements PetService {
     @Override
     public void delete(int id, int userId) throws NotFoundException {
         checkNotFoundWithId(repository.get(id,userId),id);
+    }
+
+    @Override
+    public List<Pet> getBetweenDateTimes(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId) {
+        return repository.getBetween(startDateTime, endDateTime, userId);
     }
 
     @Override

@@ -1,10 +1,11 @@
 package com.online.shelter.pet.servlet.to;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class PetWithDownplayWeight {
     private final Integer id;
-    private final LocalDate createdDate;
+    private final LocalDateTime createdDate;
     private final String typePet;
     private final String namePet;
     private final String breed;
@@ -20,7 +21,7 @@ public class PetWithDownplayWeight {
 
     private final boolean downplayWeight;
 
-    public PetWithDownplayWeight(Integer id, LocalDate createdDate, String typePet, String namePet, String breed, String sex, String color, double age, int growth, double weight, String namePerson, String phone, String email, boolean downplayWeight) {
+    public PetWithDownplayWeight(Integer id, LocalDateTime createdDate, String typePet, String namePet, String breed, String sex, String color, double age, int growth, double weight, String namePerson, String phone, String email, boolean downplayWeight) {
         this.id = id;
         this.createdDate = createdDate;
         this.typePet = typePet;
@@ -41,7 +42,7 @@ public class PetWithDownplayWeight {
         return id;
     }
 
-    public LocalDate getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
