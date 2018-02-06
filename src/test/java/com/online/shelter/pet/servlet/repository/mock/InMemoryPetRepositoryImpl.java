@@ -21,8 +21,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.online.shelter.pet.servlet.repository.mock.InMemoryUserRepositoryImpl.ADMIN_ID;
-import static com.online.shelter.pet.servlet.repository.mock.InMemoryUserRepositoryImpl.USER_ID;
+import static com.online.shelter.pet.servlet.UserTestData.ADMIN_ID;
+import static com.online.shelter.pet.servlet.UserTestData.USER_ID;
+
 
 @Repository
 public class InMemoryPetRepositoryImpl implements PetRepository {
