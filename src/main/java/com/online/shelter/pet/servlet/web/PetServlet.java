@@ -42,10 +42,11 @@ public class PetServlet extends HttpServlet {
                 Integer.parseInt(request.getParameter("growth")), Double.parseDouble(request.getParameter("weight")),
                 request.getParameter("namePerson"),request.getParameter("phone"),request.getParameter("email"));
 
-        if(request.getParameter("id").isEmpty())
+        if(request.getParameter("id").isEmpty()) {
             petController.create(pet);
-        else
+        }else{
             petController.update(pet,getId(request));
+        }
         response.sendRedirect("pets");
     }
 
@@ -53,14 +54,14 @@ public class PetServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
 
-        switch (action == null ? "all" :action){
+        switch (action == null ? "all" : action){
             case "delete":
                 int id = getId(request);
                 petController.delete(id);
                 response.sendRedirect("pets");
             case "create":
             case "update":
-                final Pet pet = "create".equals(action)?
+                final Pet pet = "create".equals(action) ?
                         new Pet(LocalDate.now(),"","","","","",0,0,0,"","","") :
                         petController.get(getId(request));
                 request.setAttribute("pet",pet);

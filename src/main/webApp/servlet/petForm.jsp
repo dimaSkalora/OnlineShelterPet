@@ -25,7 +25,7 @@
 <body>
 <section>
     <h3><a href="index.html">Home</a></h3>
-    <h2>${param.action == 'create' ? 'Create Pet' : 'Edit Pet'}</h2>
+    <h2>${param.action == 'create' ? 'Create pet' : 'Edit pet'}</h2>
     <hr>
     <jsp:useBean id="pet" type="com.online.shelter.pet.servlet.model.Pet" scope="request"/>
     <form method="post" action="pets">
@@ -36,12 +36,12 @@
         </dl>
         <dl>
             <dt>Type Pet:</dt>
-           <%-- <dd><input type="text" value="${pet.typePet}" size="50" name = "typePet"></dd>--%>
-            <dd><select name="typePet" required>
+            <dd><input type="text" value="${pet.typePet}" size="50" name = "typePet" required></dd>
+           <%-- <dd><select name="typePet" required>
                 <option>Cat</option>
                 <option>Dog</option>
                 <option>Others</option>
-            </select></dd>
+            </select></dd>--%>
         </dl>
         <dl>
             <dt>Name Pet:</dt>
