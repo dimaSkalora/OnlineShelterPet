@@ -1,5 +1,6 @@
 package com.online.shelter.pet.servlet.web;
 
+import com.online.shelter.pet.servlet.AuthorizedUser;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -11,6 +12,13 @@ import java.io.IOException;
 
 public class UserServlet extends HttpServlet {
     private static final Logger logger = getLogger(UserServlet.class);
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        AuthorizedUser.setId(userId);
+        response.sendRedirect("pets");
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
