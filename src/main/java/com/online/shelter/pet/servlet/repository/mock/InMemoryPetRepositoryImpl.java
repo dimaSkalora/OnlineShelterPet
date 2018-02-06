@@ -4,8 +4,12 @@ import com.online.shelter.pet.servlet.model.Pet;
 import com.online.shelter.pet.servlet.repository.PetRepository;
 import com.online.shelter.pet.servlet.util.DateTimeUtil;
 import com.online.shelter.pet.servlet.util.PetUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -23,6 +27,8 @@ import static com.online.shelter.pet.servlet.repository.mock.InMemoryUserReposit
 @Repository
 public class InMemoryPetRepositoryImpl implements PetRepository {
 
+    private static final Logger log = LoggerFactory.getLogger(InMemoryUserRepositoryImpl.class);
+
     // Map  userId -> (petId-> pet)
     private Map<Integer, Map<Integer,Pet>> repository = new ConcurrentHashMap<>();
     private AtomicInteger counter = new AtomicInteger(0);
@@ -38,6 +44,17 @@ public class InMemoryPetRepositoryImpl implements PetRepository {
                 1.8,15,4,"anna","0489449494","aeqsfsdre@eqwd"),ADMIN_ID);
 
     }
+
+    @PostConstruct
+    public void postConstruct() {
+        log.info("+++ PostConstruct");
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        log.info("+++ PreDestroy");
+    }
+
     @Override
     public Pet save(Pet pet, int userId) {
         Map<Integer,Pet> pets = repository.computeIfAbsent(userId, ConcurrentHashMap::new);
