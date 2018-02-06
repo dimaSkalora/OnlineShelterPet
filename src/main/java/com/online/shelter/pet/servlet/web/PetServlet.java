@@ -13,8 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
+
+import static com.online.shelter.pet.servlet.util.DateTimeUtil.parseLocalDate;
+import static com.online.shelter.pet.servlet.util.DateTimeUtil.parseLocalTime;
 
 public class PetServlet extends HttpServlet {
 
@@ -37,19 +41,29 @@ public class PetServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        String action = request.getParameter("action");
 
-        Pet pet = new Pet(LocalDateTime.parse(request.getParameter("createDate")),
-                request.getParameter("typePet"),request.getParameter("namePet"), request.getParameter("breed"),
-                request.getParameter("sex"), request.getParameter("color"), Double.parseDouble(request.getParameter("age")),
-                Integer.parseInt(request.getParameter("growth")), Double.parseDouble(request.getParameter("weight")),
-                request.getParameter("namePerson"),request.getParameter("phone"),request.getParameter("email"));
+        if(action == null) {
+            Pet pet = new Pet(LocalDateTime.parse(request.getParameter("createDate")),
+                    request.getParameter("typePet"), request.getParameter("namePet"), request.getParameter("breed"),
+                    request.getParameter("sex"), request.getParameter("color"), Double.parseDouble(request.getParameter("age")),
+                    Integer.parseInt(request.getParameter("growth")), Double.parseDouble(request.getParameter("weight")),
+                    request.getParameter("namePerson"), request.getParameter("phone"), request.getParameter("email"));
 
-        if(request.getParameter("id").isEmpty()) {
-            petController.create(pet);
-        }else{
-            petController.update(pet,getId(request));
+            if (request.getParameter("id").isEmpty()) {
+                petController.create(pet);
+            } else {
+                petController.update(pet, getId(request));
+            }
+            response.sendRedirect("pets");
+        }else  if("filter".equals(action)){
+            LocalDate startDate = parseLocalDate(request.getParameter("startDate"));
+            LocalDate endDate = parseLocalDate(request.getParameter("endDate"));
+            LocalTime startTime = parseLocalTime(request.getParameter("startTime"));
+            LocalTime endTime = parseLocalTime(request.getParameter("endTime"));
+            request.setAttribute("pets", petController.getBetween(startDate, startTime, endDate, endTime));
+            request.getRequestDispatcher("/pets.jsp").forward(request, response);
         }
-        response.sendRedirect("pets");
     }
 
     @Override

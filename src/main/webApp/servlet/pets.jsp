@@ -7,19 +7,32 @@
 <html>
 <head>
     <title>Pet List</title>
-    <style>
-        .normal{
-            color: green;
-        }
-        .reduced{
-            color: red;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
 <section>
     <h3><a href="index.html">Home</a> </h3>
     <h2>Pets</h2>
+    <form method="post" action="pets?action=filter">
+        <dl>
+            <dt>From Date:</dt>
+            <dd><input type="date" name="startDate" value="${param.startDate}"></dd>
+        </dl>
+        <dl>
+            <dt>To Date:</dt>
+            <dd><input type="date" name="endDate" value="${param.endDate}"></dd>
+        </dl>
+        <dl>
+            <dt>From Time:</dt>
+            <dd><input type="time" name="startTime" value="${param.startTime}"></dd>
+        </dl>
+        <dl>
+            <dt>To Time:</dt>
+            <dd><input type="time" name="endTime" value="${param.endTime}"></dd>
+        </dl>
+        <button type="submit">Filter</button>
+    </form>
+    <hr/>
     <a href="pets?action=create">Add Pet</a>
     <hr/>
     <table border="1" cellpadding="8" cellspacing="0">
