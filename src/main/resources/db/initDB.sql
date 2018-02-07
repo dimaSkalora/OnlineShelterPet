@@ -23,3 +23,23 @@ CREATE TABLE user_roles
   CONSTRAINT user_roles_idx UNIQUE (user_id, role),
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
+
+CREATE TABLE pets (
+  id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  user_id     INTEGER   NOT NULL,
+  createdDate TIMESTAMP NOT NULL,
+  typePet     VARCHAR NOT NULL,
+  namePet     VARCHAR NOT NULL,
+  breed       VARCHAR NOT NULL,
+  sex         VARCHAR NOT NULL,
+  color       VARCHAR NOT NULL,
+  age         DECIMAL NOT NULL,
+  growth      INTEGER NOT NULL,
+  weight      DECIMAL NOT NULL,
+  namePerson  VARCHAR NOT NULL,
+  phone       VARCHAR NOT NULL,
+  email       VARCHAR NOT NULL,
+
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
+CREATE UNIQUE INDEX pets_unique_user_datetime_idx ON pets (user_id, date_time)

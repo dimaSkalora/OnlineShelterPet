@@ -5,19 +5,22 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class Pet extends AbstractBaseEntity{
-    private final LocalDateTime createdDate;
-    private final String typePet;
-    private final String namePet;
-    private final String breed;
-    private final String sex;
-    private final String color;
-    private final double age;
-    private final int growth;
-    private final double weight;
+    private LocalDateTime createdDate;
+    private String typePet;
+    private String namePet;
+    private String breed;
+    private String sex;
+    private String color;
+    private double age;
+    private int growth;
+    private double weight;
 
-    private final String namePerson;
-    private final String phone;
-    private final String email;
+    private String namePerson;
+    private String phone;
+    private String email;
+
+    public Pet() {
+    }
 
     public Pet(LocalDateTime createdDate, String typePet, String namePet, String breed, String sex, String color, double age, int growth, double weight, String namePerson, String phone, String email) {
       this(null, createdDate, typePet, namePet, breed, sex, color, age, growth, weight, namePerson, phone, email);
@@ -93,6 +96,54 @@ public class Pet extends AbstractBaseEntity{
 
     public String getEmail() {
         return email;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public void setTypePet(String typePet) {
+        this.typePet = typePet;
+    }
+
+    public void setNamePet(String namePet) {
+        this.namePet = namePet;
+    }
+
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setAge(double age) {
+        this.age = age;
+    }
+
+    public void setGrowth(int growth) {
+        this.growth = growth;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void setNamePerson(String namePerson) {
+        this.namePerson = namePerson;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
