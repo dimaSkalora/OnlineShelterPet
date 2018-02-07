@@ -7,19 +7,17 @@ import com.online.shelter.pet.servlet.util.PetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static com.online.shelter.pet.servlet.UserTestData.ADMIN_ID;
 import static com.online.shelter.pet.servlet.UserTestData.USER_ID;
@@ -82,21 +80,20 @@ public class InMemoryPetRepositoryImpl implements PetRepository {
 
     @Override
     public List<Pet> getAll(int userId) {
-        return getAllAsStream(userId).collect(Collectors.toList());
+        return getAllFiltered(userId,pet -> true);
     }
 
     @Override
     public List<Pet> getBetween(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId) {
-        return getAllAsStream(userId)
-                .filter(pet -> DateTimeUtil.isBetween(pet.getCreatedDate(), startDateTime, endDateTime))
-                .collect(Collectors.toList());
+        return getAllFiltered(userId, pet ->DateTimeUtil.isBetween(pet.getCreatedDate(), startDateTime,endDateTime));
     }
 
-    private Stream<Pet> getAllAsStream(int userId) {
+    private List<Pet> getAllFiltered(int userId, Predicate<Pet> filter) {
         Map<Integer, Pet> pets = repository.get(userId);
-        return pets == null ?
-                Stream.empty() :
+        return CollectionUtils.isEmpty(pets) ? Collections.emptyList() :
                 pets.values().stream()
-                        .sorted(Comparator.comparing(Pet::getCreatedDate).reversed());
+                        .filter(filter)
+                        .sorted(Comparator.comparing(Pet::getCreatedDate).reversed())
+                        .collect(Collectors.toList());
     }
 }
