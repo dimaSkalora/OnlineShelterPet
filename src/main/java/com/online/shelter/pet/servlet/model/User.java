@@ -14,6 +14,13 @@ public class User extends AbstractNamedEntity{
     private Set<Role> roles;
     private double normalWeight = DEFAULT_NOLMAL_WEIGHT;
 
+    public User(){}
+
+    //Конструктор копирование
+    public User(User u) {
+        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.getNormalWeight(), u.isEnabled(), u.getRoles());
+    }
+
     public User(Integer id, String name, String email, String password, Role role, Role... roles){
         this(id,name,email,password,DEFAULT_NOLMAL_WEIGHT,true, EnumSet.of(role,roles));
     }

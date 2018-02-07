@@ -14,7 +14,7 @@
     <!-- Not necessary, already included with component-scan -->
     <!--<context:annotation-config/>-->
 
-    <context:component-scan base-package="com.online.shelter.pet.**.repository"/>
+    <context:component-scan base-package="com.online.shelter.pet.**.repository.jdbc"/>
     <context:component-scan base-package="com.online.shelter.pet.**.service"/>
     <context:component-scan base-package="com.online.shelter.pet.**.web"/>
 </beans>
