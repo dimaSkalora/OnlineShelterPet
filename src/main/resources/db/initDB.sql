@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS user_roles;
+DROP TABLE IF EXISTS pets;
 DROP TABLE IF EXISTS users;
 DROP SEQUENCE IF EXISTS global_seq;
 
@@ -42,4 +43,4 @@ CREATE TABLE pets (
 
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
-CREATE UNIQUE INDEX pets_unique_user_datetime_idx ON pets (user_id, date_time)
+CREATE UNIQUE INDEX pets_unique_user_datetime_idx ON pets (user_id, createdDate)
