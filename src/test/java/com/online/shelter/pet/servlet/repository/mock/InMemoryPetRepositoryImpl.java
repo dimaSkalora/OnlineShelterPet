@@ -39,6 +39,7 @@ public class InMemoryPetRepositoryImpl implements PetRepository {
 
     @Override
     public Pet save(Pet pet, int userId) {
+        Objects.requireNonNull(pet);
         Map<Integer,Pet> pets = repository.computeIfAbsent(userId, ConcurrentHashMap::new);
         if(pet.isNew()){
             pet.setId(counter.incrementAndGet());
@@ -68,6 +69,8 @@ public class InMemoryPetRepositoryImpl implements PetRepository {
 
     @Override
     public List<Pet> getBetween(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId) {
+        Objects.requireNonNull(startDateTime);
+        Objects.requireNonNull(endDateTime);
         return getAllFiltered(userId, pet ->DateTimeUtil.isBetween(pet.getCreatedDate(), startDateTime,endDateTime));
     }
 

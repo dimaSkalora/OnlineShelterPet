@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 
 
 public class PetUtil {
+    private PetUtil() {
+    }
 
     public static final double DEFAULT_NOLMAL_WEIGHT = 0.2;
 

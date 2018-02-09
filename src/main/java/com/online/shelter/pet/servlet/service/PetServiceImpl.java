@@ -5,6 +5,7 @@ import com.online.shelter.pet.servlet.repository.PetRepository;
 import com.online.shelter.pet.servlet.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,6 +32,8 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public List<Pet> getBetweenDateTimes(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId) {
+        Assert.notNull(startDateTime, "startDateTime must not be null");
+        Assert.notNull(endDateTime, "endDateTime  must not be null");
         return repository.getBetween(startDateTime, endDateTime, userId);
     }
 
@@ -46,6 +49,7 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public Pet create(Pet pet, int userId) {
+        Assert.notNull(pet, "meal must not be null");
         return repository.save(pet,userId);
     }
 }

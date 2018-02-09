@@ -5,6 +5,9 @@ import com.online.shelter.pet.servlet.util.exception.NotFoundException;
 
 public class ValidationUtil {
 
+    private ValidationUtil() {
+    }
+
     public static void checkNotFoundWithId(boolean found, int id) {
         checkNotFound(found, "id=" + id);
     }
