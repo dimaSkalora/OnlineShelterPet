@@ -3,6 +3,7 @@ package com.online.shelter.pet.servlet.repository.jpa;
 import com.online.shelter.pet.servlet.model.User;
 import com.online.shelter.pet.servlet.repository.UserRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,6 +11,7 @@ import javax.persistence.Query;
 import java.util.List;
 
 @Repository
+@Transactional(readOnly = true)
 public class JpaUserRepositoryImpl implements UserRepository {
     /*
     @Autowired
@@ -23,6 +25,7 @@ public class JpaUserRepositoryImpl implements UserRepository {
     private EntityManager entityManager;
 
     @Override
+    @Transactional
     public User save(User user) {
         if(user.isNew()){
             entityManager.persist(user);
@@ -32,6 +35,7 @@ public class JpaUserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
        /*      User ref = em.getReference(User.class, id);
         em.remove(ref);
