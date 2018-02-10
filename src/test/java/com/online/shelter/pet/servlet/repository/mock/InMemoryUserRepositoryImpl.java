@@ -5,7 +5,6 @@ import com.online.shelter.pet.servlet.model.User;
 import com.online.shelter.pet.servlet.repository.UserRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;

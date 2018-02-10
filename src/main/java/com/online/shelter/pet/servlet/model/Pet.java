@@ -1,5 +1,7 @@
 package com.online.shelter.pet.servlet.model;
 
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -18,6 +20,9 @@ public class Pet extends AbstractBaseEntity{
     private String namePerson;
     private String phone;
     private String email;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
 
     public Pet() {
     }
@@ -144,6 +149,14 @@ public class Pet extends AbstractBaseEntity{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
