@@ -1,5 +1,7 @@
 package com.online.shelter.pet.servlet.model;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
 
 @MappedSuperclass
@@ -9,6 +11,10 @@ public abstract class AbstractBaseEntity {
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
+
+//    PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
+//    Fixed at last?
+//    @Access(value = AccessType.PROPERTY)
     protected Integer id;
 
     public AbstractBaseEntity() {
@@ -38,7 +44,8 @@ public abstract class AbstractBaseEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || !getClass().equals(Hibernate.getClass(o)))
+            return false;
 
         AbstractBaseEntity that = (AbstractBaseEntity) o;
 
