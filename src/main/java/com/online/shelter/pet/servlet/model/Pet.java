@@ -1,27 +1,91 @@
 package com.online.shelter.pet.servlet.model;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import org.hibernate.validator.constraints.Range;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+@SuppressWarnings("JpaQlInspection")
+@NamedQueries({
+        @NamedQuery(name = Pet.ALL_SORTED, query = "SELECT p FROM Pet p WHERE p.user.id=:userId ORDER BY p.createdDate DESC"),
+        @NamedQuery(name = Pet.DELETE, query = "DELETE FROM Pet p WHERE p.id=:id AND p.user.id=:userId"),
+        @NamedQuery(name = Pet.GET_BETWEEN, query = "SELECT p FROM Pet p " +
+                "WHERE p.user.id=:userId AND p.dateTime BETWEEN :startDate AND :endDate ORDER BY p.dateTime DESC")
+})
+@Entity
+@Table(name = "pets", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id","createddate"}, name =
+        "pets_unique_user_createddate_idx")})
 public class Pet extends AbstractBaseEntity{
+
+    public static final String ALL_SORTED = "Pet.getAll";
+    public static final String DELETE = "Pet.delete";
+    public static final String GET_BETWEEN = "Pet.getBetween";
+
+    @Column(name = "createdDate",nullable = false)
+    @NotNull
     private LocalDateTime createdDate;
+
+    @Column(name = "typePet", nullable=false)
+    @NotBlank
+    @Size(min = 3, max = 8)
     private String typePet;
+
+    @Column(name = "namePet", nullable = false)
+    @NotBlank
+    @Size(min = 2, max = 120)
     private String namePet;
+
+    @Column(name = "breed", nullable = false)
+    @NotBlank
+    @Size(min = 5, max =20)
     private String breed;
+
+    @Column(name = "sex", nullable = false)
+    @NotBlank
+    @Size(min = 1, max = 10)
     private String sex;
+
+    @Column(name = "color", nullable = false)
+    @NotBlank
+    @Size(min = 4,max = 15)
     private String color;
+
+    @Column(name = "age", nullable = false)
+    @NotBlank
     private double age;
+
+    @Column(name = "growth", nullable = false)
+    @NotBlank
+    @Range(min = 5, max = 100)
     private int growth;
+
+    @Column(name = "age",nullable = false)
+    @NotBlank
     private double weight;
 
+    @Column(name = "namePerson", nullable = false)
+    @NotBlank
+    @Size(min = 4, max = 100)
     private String namePerson;
+
+    @Column(name = "phone", nullable = false)
+    @NotBlank
+    @Size(min = 7, max = 15)
     private String phone;
+
+    @Column(name = "email", nullable = false)
+    @NotBlank
+    @Size(min = 5, max = 50)
     private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    @NotNull
     private User user;
 
     public Pet() {
