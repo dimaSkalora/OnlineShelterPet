@@ -13,43 +13,43 @@ import static com.online.shelter.pet.servlet.util.ValidationUtil.checkNotFoundWi
 
 @Service
 public class PetServiceImpl implements PetService {
-    private final PetRepository repository;
+    private final PetRepository petRepository;
 
     @Autowired
-    public PetServiceImpl(PetRepository repository) {
-        this.repository = repository;
+    public PetServiceImpl(PetRepository petRepository) {
+        this.petRepository = petRepository;
     }
 
     @Override
     public Pet get(int id, int userId) throws NotFoundException {
-        return checkNotFoundWithId(repository.get(id,userId),id);
+        return checkNotFoundWithId(petRepository.get(id,userId),id);
     }
 
     @Override
     public void delete(int id, int userId) throws NotFoundException {
-        checkNotFoundWithId(repository.get(id,userId),id);
+        checkNotFoundWithId(petRepository.get(id,userId),id);
     }
 
     @Override
     public List<Pet> getBetweenDateTimes(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId) {
         Assert.notNull(startDateTime, "startDateTime must not be null");
         Assert.notNull(endDateTime, "endDateTime  must not be null");
-        return repository.getBetween(startDateTime, endDateTime, userId);
+        return petRepository.getBetween(startDateTime, endDateTime, userId);
     }
 
     @Override
     public List<Pet> getAll(int userId) {
-        return repository.getAll(userId);
+        return petRepository.getAll(userId);
     }
 
     @Override
     public Pet update(Pet pet, int userId) throws NotFoundException {
-        return checkNotFoundWithId(repository.save(pet,userId),pet.getId());
+        return checkNotFoundWithId(petRepository.save(pet,userId),pet.getId());
     }
 
     @Override
     public Pet create(Pet pet, int userId) {
         Assert.notNull(pet, "meal must not be null");
-        return repository.save(pet,userId);
+        return petRepository.save(pet,userId);
     }
 }
