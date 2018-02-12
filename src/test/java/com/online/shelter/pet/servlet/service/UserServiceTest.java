@@ -1,5 +1,6 @@
 package com.online.shelter.pet.servlet.service;
 
+import com.online.shelter.pet.servlet.ActiveDbProfileResolver;
 import com.online.shelter.pet.servlet.Profiles;
 import com.online.shelter.pet.servlet.model.Role;
 import com.online.shelter.pet.servlet.model.User;
@@ -28,7 +29,7 @@ import static org.junit.Assert.*;
 })
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-@ActiveProfiles(Profiles.ACTIVE_DB)
+@ActiveProfiles(resolver = ActiveDbProfileResolver.class)
 public class UserServiceTest {
 
     static {

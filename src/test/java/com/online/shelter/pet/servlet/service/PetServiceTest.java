@@ -1,5 +1,6 @@
 package com.online.shelter.pet.servlet.service;
 
+import com.online.shelter.pet.servlet.ActiveDbProfileResolver;
 import com.online.shelter.pet.servlet.Profiles;
 import com.online.shelter.pet.servlet.model.Pet;
 import com.online.shelter.pet.servlet.util.exception.NotFoundException;
@@ -34,7 +35,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 })
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-@ActiveProfiles(Profiles.ACTIVE_DB)
+@ActiveProfiles(resolver = ActiveDbProfileResolver.class)
 public class PetServiceTest {
     private static final Logger log = getLogger("result");
 
