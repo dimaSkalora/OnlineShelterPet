@@ -17,6 +17,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!--Spring-->
         <spring.version>4.3.14.RELEASE</spring.version>
+        <spring-data.version>2.0.3.RELEASE</spring-data.version>
         <!-- Logging -->
         <logback.version>1.2.3</logback.version>
         <slf4j.version>1.7.25</slf4j.version>
@@ -99,6 +100,17 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring-data.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-commons -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+            <version>${spring-data.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -261,6 +273,15 @@
     </profiles>
 
     <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
 
 </project>
