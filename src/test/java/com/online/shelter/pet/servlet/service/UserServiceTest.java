@@ -1,5 +1,6 @@
 package com.online.shelter.pet.servlet.service;
 
+import com.online.shelter.pet.servlet.Profiles;
 import com.online.shelter.pet.servlet.model.Role;
 import com.online.shelter.pet.servlet.model.User;
 import com.online.shelter.pet.servlet.util.exception.NotFoundException;
@@ -8,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
@@ -26,6 +28,7 @@ import static org.junit.Assert.*;
 })
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
+@ActiveProfiles(Profiles.ACTIVE_DB)
 public class UserServiceTest {
 
     static {
