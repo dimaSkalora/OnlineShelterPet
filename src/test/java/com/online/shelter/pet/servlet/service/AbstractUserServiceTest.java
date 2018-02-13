@@ -1,45 +1,21 @@
 package com.online.shelter.pet.servlet.service;
 
-import com.online.shelter.pet.servlet.ActiveDbProfileResolver;
-import com.online.shelter.pet.servlet.Profiles;
 import com.online.shelter.pet.servlet.model.Role;
 import com.online.shelter.pet.servlet.model.User;
 import com.online.shelter.pet.servlet.util.exception.NotFoundException;
 import org.junit.Before;
-import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.dao.DataAccessException;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import static com.online.shelter.pet.servlet.UserTestData.*;
-import static org.junit.Assert.*;
 
-
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-db.xml"
-})
-@RunWith(SpringRunner.class)
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-@ActiveProfiles(resolver = ActiveDbProfileResolver.class)
-public class UserServiceTest {
-
-    static {
-        // Only for postgres driver logging
-        // It uses java.util.logging and logged via jul-to-slf4j bridge
-        SLF4JBridgeHandler.install();
-    }
+public abstract class AbstractUserServiceTest extends AbstractServiceTest{
 
     @Autowired
     private UserService service;
