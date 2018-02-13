@@ -61,7 +61,7 @@ public class User extends AbstractNamedEntity{
     @Column(name = "normal_weight", columnDefinition = "double default = 0.2")
     private double normalWeight = DEFAULT_NOLMAL_WEIGHT;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
     @OrderBy("createdDate DESC")
     protected List<Pet> pets;
 
