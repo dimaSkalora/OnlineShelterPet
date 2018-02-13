@@ -2,6 +2,7 @@ package com.online.shelter.pet.servlet.service;
 
 import com.online.shelter.pet.servlet.model.Role;
 import com.online.shelter.pet.servlet.model.User;
+import com.online.shelter.pet.servlet.repository.JpaUtil;
 import com.online.shelter.pet.servlet.util.exception.NotFoundException;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,9 +25,13 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest{
     @Autowired
     private CacheManager cacheManager;
 
+    @Autowired
+    protected JpaUtil jpaUtil;
+
     @Before
     public void setUp() throws Exception {
         cacheManager.getCache("users").clear();
+        jpaUtil.clear2ndLevelHibernateCache();
     }
 
     @Test
