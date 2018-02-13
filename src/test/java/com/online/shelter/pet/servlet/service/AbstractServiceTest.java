@@ -2,6 +2,7 @@ package com.online.shelter.pet.servlet.service;
 
 import com.online.shelter.pet.servlet.ActiveDbProfileResolver;
 import com.online.shelter.pet.servlet.TimingRules;
+import org.junit.Assert;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
@@ -14,6 +15,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import static com.online.shelter.pet.servlet.util.ValidationUtil.getRootCause;
+import static org.hamcrest.CoreMatchers.instanceOf;
 
 
 @ContextConfiguration({
@@ -36,5 +40,15 @@ public abstract class AbstractServiceTest {
     static {
         // needed only for java.util.logging (postgres driver)
         SLF4JBridgeHandler.install();
+    }
+
+    //  Check root cause in JUnit: https://github.com/junit-team/junit4/pull/778
+    public <T extends Throwable> void validateRootCause(Runnable runnable, Class<T> exceptionClass) {
+        try {
+            runnable.run();
+            Assert.fail("Expected " + exceptionClass.getName());
+        } catch (Exception e) {
+            Assert.assertThat(getRootCause(e), instanceOf(exceptionClass));
+        }
     }
 }
