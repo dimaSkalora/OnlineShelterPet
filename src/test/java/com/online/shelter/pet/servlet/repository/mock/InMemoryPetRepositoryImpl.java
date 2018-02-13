@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Repository
 public class InMemoryPetRepositoryImpl implements PetRepository {
 
-    private static final Logger log = LoggerFactory.getLogger(InMemoryUserRepositoryImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(InMemoryPetRepositoryImpl.class);
 
     // Map  userId -> (petId-> pet)
     private Map<Integer, Map<Integer,Pet>> repository = new ConcurrentHashMap<>();

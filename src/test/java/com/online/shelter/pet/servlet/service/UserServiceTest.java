@@ -19,6 +19,7 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import static com.online.shelter.pet.servlet.UserTestData.*;
@@ -53,7 +54,7 @@ public class UserServiceTest {
 
     @Test
     public void create() throws Exception {
-        User newUser = new User(null, "New", "new@gmail.com", "newPass", 0.5, false, Collections.singleton(Role.ROLE_USER));
+        User newUser = new User(null, "New", "new@gmail.com", "newPass", 0.5, false,new Date(), Collections.singleton(Role.ROLE_USER));
         User created = service.create(newUser);
         newUser.setId(created.getId());
         assertMatch(service.getAll(), ADMIN, newUser, USER);

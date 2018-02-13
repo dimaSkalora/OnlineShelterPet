@@ -73,19 +73,19 @@ public class PetServiceTest {
     private PetService service;
 
     @Test
-    public void testDelete()throws Exception{
+    public void delete()throws Exception{
         service.delete(PET_ID, USER_ID);
         assertMatch(service.getAll(USER_ID),PET6,PET5,PET4,PET3,PET2);
     }
 
     @Test
-    public void testDeleteNotFound()throws Exception{
+    public void deleteNotFound()throws Exception{
         thrown.expect(NotFoundException.class);
         service.delete(PET_ID,1);
     }
 
     @Test
-    public void testSave()throws Exception{
+    public void create()throws Exception{
         Pet created = getCreated();
         service.create(created,USER_ID);
         assertMatch(service.getAll(USER_ID), created, PET6, PET5, PET4, PET3 , PET2, PET1);
@@ -93,38 +93,38 @@ public class PetServiceTest {
 
 
     @Test
-    public void testGet() throws Exception {
+    public void get() throws Exception {
         Pet actual = service.get(ADMIN_PET_ID, ADMIN_ID);
         assertMatch(actual, ADMIN_PET1);
     }
 
     @Test
-    public void testGetNotFound() throws Exception {
+    public void getNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
         service.get(PET_ID, ADMIN_ID);
     }
 
     @Test
-    public void testUpdate() throws Exception {
+    public void update() throws Exception {
         Pet updated = getUpdated();
         service.update(updated, USER_ID);
         assertMatch(service.get(PET_ID, USER_ID), updated);
     }
 
     @Test
-    public void testUpdateNotFound() throws Exception {
+    public void updateNotFound() throws Exception {
         thrown.expect(NotFoundException.class);
         thrown.expectMessage("Not found entity with id=" + PET_ID);
         service.update(PET1, ADMIN_ID);
     }
 
     @Test
-    public void testGetAll() throws Exception {
+    public void getAll() throws Exception {
         assertMatch(service.getAll(USER_ID), PETS);
     }
 
     @Test
-    public void testGetBetween() throws Exception {
+    public void getBetween() throws Exception {
         assertMatch(service.getBetweenDates(
                 LocalDate.of(2018, Month.JANUARY, 29),
                 LocalDate.of(2018, Month.JANUARY, 29), USER_ID), PET3, PET2, PET1);

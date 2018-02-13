@@ -1,13 +1,13 @@
 package com.online.shelter.pet.servlet.model;
 
+import org.springframework.util.CollectionUtils;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.Set;
+import java.util.*;
 
 import static com.online.shelter.pet.servlet.util.PetUtil.DEFAULT_NOLMAL_WEIGHT;
 
@@ -55,20 +55,21 @@ public class User extends AbstractNamedEntity{
 
     //Конструктор копирование
     public User(User u) {
-        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.getNormalWeight(), u.isEnabled(), u.getRoles());
+        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.getNormalWeight(), u.isEnabled(), u.getRegistered(), u.getRoles());
     }
 
     public User(Integer id, String name, String email, String password, Role role, Role... roles){
-        this(id,name,email,password,DEFAULT_NOLMAL_WEIGHT,true, EnumSet.of(role,roles));
+        this(id,name,email,password,DEFAULT_NOLMAL_WEIGHT,true, new Date(), EnumSet.of(role,roles));
     }
 
-    public User(Integer id, String name, String email, String password,double normalWeight, boolean enabled, Set<Role> roles ) {
+    public User(Integer id, String name, String email, String password,double normalWeight, boolean enabled,Date registered, Collection<Role> roles ) {
         super(id, name);
         this.email = email;
         this.password = password;
         this.enabled = enabled;
-        this.roles = roles;
         this.normalWeight = normalWeight;
+        this.registered = registered;
+        setRoles(roles);
     }
 
 
@@ -108,8 +109,8 @@ public class User extends AbstractNamedEntity{
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRoles(Collection<Role> roles) {
+        this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
     }
 
     public double getNormalWeight() {
