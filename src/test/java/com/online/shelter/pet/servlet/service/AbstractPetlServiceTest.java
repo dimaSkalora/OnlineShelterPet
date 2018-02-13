@@ -15,7 +15,7 @@ import static com.online.shelter.pet.servlet.UserTestData.USER_ID;
 public abstract class AbstractPetlServiceTest extends AbstractServiceTest{
 
     @Autowired
-    private PetService service;
+    protected PetService service;
 
     @Test
     public void delete()throws Exception{

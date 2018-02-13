@@ -51,6 +51,10 @@ public class User extends AbstractNamedEntity{
     @Column(name = "normal_weight", columnDefinition = "double default = 0.2")
     private double normalWeight = DEFAULT_NOLMAL_WEIGHT;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OrderBy("createdDate DESC")
+    protected List<Pet> pets;
+
     public User(){}
 
     //Конструктор копирование
@@ -119,6 +123,10 @@ public class User extends AbstractNamedEntity{
 
     public void setNormalWeight(double normalWeight) {
         this.normalWeight = normalWeight;
+    }
+
+    public List<Pet> getPets() {
+        return pets;
     }
 
     @Override

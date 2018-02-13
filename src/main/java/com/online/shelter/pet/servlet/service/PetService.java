@@ -24,4 +24,6 @@ public interface PetService {
     Pet update(Pet pet, int userId) throws NotFoundException;
 
     Pet create(Pet pet, int userId);
+
+    Pet getWithUser(int id, int userId);
 }

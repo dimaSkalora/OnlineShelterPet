@@ -27,4 +27,8 @@ public interface CrudPetRepository extends JpaRepository<Pet, Integer> {
     @SuppressWarnings("JpaQlInspection")
     @Query("SELECT p from Pet p WHERE p.user.id=:userId AND p.createdDate BETWEEN :startDate AND :endDate ORDER BY p.createdDate DESC")
     List<Pet> getBetween(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate, @Param("userId") int userId);
+
+    @Query("SELECT p FROM Pet p JOIN FETCH p.user WHERE p.id = ?1 and p.user.id = ?2")
+    Pet getWithUser(int id, int userId);
+
 }

@@ -12,4 +12,6 @@ public interface UserService {
     User getByEmail(String email) throws NotFoundException;
     void update(User user);
     List<User> getAll();
+
+    User getWithPets(int id);
 }

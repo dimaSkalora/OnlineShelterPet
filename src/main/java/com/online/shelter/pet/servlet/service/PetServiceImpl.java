@@ -52,4 +52,9 @@ public class PetServiceImpl implements PetService {
         Assert.notNull(pet, "meal must not be null");
         return petRepository.save(pet,userId);
     }
+
+    @Override
+    public Pet getWithUser(int id, int userId) {
+        return checkNotFoundWithId(petRepository.getWithUser(id, userId), id);
+    }
 }

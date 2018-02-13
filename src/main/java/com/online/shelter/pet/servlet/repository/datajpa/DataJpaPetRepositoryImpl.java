@@ -46,4 +46,9 @@ public class DataJpaPetRepositoryImpl implements PetRepository {
     public List<Pet> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
         return crudPetRepository.getBetween(startDate, endDate, userId);
     }
+
+    @Override
+    public Pet getWithUser(int id, int userId) {
+        return crudPetRepository.getWithUser(id, userId);
+    }
 }

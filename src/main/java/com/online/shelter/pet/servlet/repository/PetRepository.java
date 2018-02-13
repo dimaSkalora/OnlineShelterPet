@@ -21,4 +21,7 @@ public interface PetRepository {
     // ORDERED dateTime desc
     List<Pet> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId);
 
+    default Pet getWithUser(int id, int userId) {
+        throw new UnsupportedOperationException();
+    }
 }
