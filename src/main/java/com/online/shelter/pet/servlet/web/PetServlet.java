@@ -5,6 +5,8 @@ import com.online.shelter.pet.servlet.model.Pet;
 import com.online.shelter.pet.servlet.web.pet.PetRestController;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -23,22 +25,13 @@ import static com.online.shelter.pet.servlet.util.DateTimeUtil.parseLocalTime;
 
 public class PetServlet extends HttpServlet {
 
-    private ClassPathXmlApplicationContext springContext;
     private PetRestController petController;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        springContext = new ClassPathXmlApplicationContext(new String[]{"spring/spring-app.xml", "spring/spring-db.xml"}, false);
-//       springContext.setConfigLocations("spring/spring-app.xml", "spring/spring-db.xml");
-        springContext.getEnvironment().setActiveProfiles(Profiles.getActiveDbProfile(), Profiles.REPOSITORY_IMPLEMENTATION);
-        springContext.refresh();        petController = springContext.getBean(PetRestController.class);
-    }
-
-    @Override
-    public void destroy() {
-        springContext.close();
-        super.destroy();
+        WebApplicationContext springContext = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
+        petController = springContext.getBean(PetRestController.class);
     }
 
     @Override

@@ -1,9 +1,14 @@
 package com.online.shelter.pet.servlet.web;
 
 import com.online.shelter.pet.servlet.AuthorizedUser;
+import com.online.shelter.pet.servlet.web.user.AdminRestController;
 import org.slf4j.Logger;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import static org.slf4j.LoggerFactory.getLogger;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +16,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class UserServlet extends HttpServlet {
-    private static final Logger logger = getLogger(UserServlet.class);
+    private static final Logger log = getLogger(UserServlet.class);
+
+    private AdminRestController adminController;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        WebApplicationContext springContext = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
+        adminController = springContext.getBean(AdminRestController.class);
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -21,10 +35,9 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.debug("redirect to users");
-
-       // req.getRequestDispatcher("/users.jsp").forward(req, resp);
-        resp.sendRedirect("users.jsp");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        log.debug("getAll");
+        request.setAttribute("users", adminController.getAll());
+        response.sendRedirect("users.jsp");
     }
 }
