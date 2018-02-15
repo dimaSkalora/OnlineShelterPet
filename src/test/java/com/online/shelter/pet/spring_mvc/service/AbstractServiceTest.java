@@ -1,6 +1,7 @@
 package com.online.shelter.pet.spring_mvc.service;
 
 import com.online.shelter.pet.spring_mvc.ActiveDbProfileResolver;
+import com.online.shelter.pet.spring_mvc.Profiles;
 import com.online.shelter.pet.spring_mvc.TimingRules;
 import org.junit.Assert;
 import org.junit.ClassRule;
@@ -10,6 +11,8 @@ import org.junit.rules.ExternalResource;
 import org.junit.rules.Stopwatch;
 import org.junit.runner.RunWith;
 import org.slf4j.bridge.SLF4JBridgeHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
@@ -34,12 +37,20 @@ public abstract class AbstractServiceTest {
     @Rule
     public Stopwatch stopwatch = TimingRules.STOPWATCH;
 
+    @Autowired
+    public Environment env;
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     static {
         // needed only for java.util.logging (postgres driver)
         SLF4JBridgeHandler.install();
+    }
+
+    public boolean isJpaBased() {
+//        return Arrays.stream(env.getActiveProfiles()).noneMatch(Profiles.JDBC::equals);
+        return env.acceptsProfiles(Profiles.JPA, Profiles.DATAJPA);
     }
 
     //  Check root cause in JUnit: https://github.com/junit-team/junit4/pull/778

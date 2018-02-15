@@ -2,6 +2,7 @@ package com.online.shelter.pet.spring_mvc.service;
 
 import com.online.shelter.pet.spring_mvc.model.Pet;
 import com.online.shelter.pet.spring_mvc.util.exception.NotFoundException;
+import org.junit.Assume;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -79,6 +80,7 @@ public abstract class AbstractPetlServiceTest extends AbstractServiceTest{
 
     @Test
     public void testValidation() throws Exception {
+        Assume.assumeTrue(isJpaBased());
         validateRootCause(() -> service.create(new Pet(null, of(2018, Month.FEBRUARY, 1, 18, 0),"Dog","d1","таксф","w","чорный",1.5,40,16,"петя","0631234567","gui@ki"), USER_ID), ConstraintViolationException.class);
         validateRootCause(() -> service.create(new Pet(null, null, "Cat","c1","сиамский","m","белый",2,20,4,"вася","0731234567","sadr@saae"), USER_ID), ConstraintViolationException.class);
         validateRootCause(() -> service.create(new Pet(null, of(2018, Month.FEBRUARY, 1, 18, 0), "Cat","c1","сеамс","m","белый",1,15,3.5,"катф","0671234567","arfva@dav"), USER_ID), ConstraintViolationException.class);
