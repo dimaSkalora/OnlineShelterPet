@@ -4,9 +4,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-<!--    <bean class="com.online.shelter.pet.servlet.repository.mock.MockUserRepositoryImpl" id="mockUserRepository"/>
+<!--    <bean class="com.online.shelter.pet.spring_mvc.repository.mock.MockUserRepositoryImpl" id="mockUserRepository"/>
 
-    <bean class="com.online.shelter.pet.servlet.service.UserServiceImpl">
+    <bean class="UserServiceImpl">
        &lt;!&ndash; <property name="repository" ref="mockUserRepository"/>&ndash;&gt;
       <constructor-arg name="repository" ref="mockUserRepository"/>
     </bean>-->
@@ -17,5 +17,4 @@
     <import resource="spring-tools.xml"/>
 
     <context:component-scan base-package="com.online.shelter.pet.**.service"/>
-    <context:component-scan base-package="com.online.shelter.pet.**.web"/>
 </beans>

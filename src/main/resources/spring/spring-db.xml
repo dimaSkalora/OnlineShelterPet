@@ -102,7 +102,7 @@
         <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
               p:entityManagerFactory-ref="entityManagerFactory"/>
 
-        <bean class="com.online.shelter.pet.servlet.repository.JpaUtil"/>
+        <bean class="com.online.shelter.pet.spring_mvc.repository.JpaUtil"/>
     </beans>
 
     <beans profile="jpa">
