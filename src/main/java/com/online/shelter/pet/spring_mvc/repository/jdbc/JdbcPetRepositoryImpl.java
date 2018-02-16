@@ -11,12 +11,14 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
+@Transactional(readOnly = true)
 public class JdbcPetRepositoryImpl implements PetRepository {
     private static final RowMapper<Pet> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Pet.class);
 
@@ -34,6 +36,7 @@ public class JdbcPetRepositoryImpl implements PetRepository {
     }
 
     @Override
+    @Transactional
     public Pet save(Pet pet, int userId) {
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", pet.getId())
@@ -66,6 +69,7 @@ public class JdbcPetRepositoryImpl implements PetRepository {
     }
 
     @Override
+    @Transactional
     public boolean delete(int id, int userId) {
         return jdbcTemplate.update("DELETE FROM pets WHERE id=? AND  user_id=?",id,userId) != 0;
     }
