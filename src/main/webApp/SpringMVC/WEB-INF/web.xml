@@ -7,7 +7,7 @@
     <display-name>OnlineShelterPet</display-name>
 
     <context-param>
-        <param-name>servlet.spring.profiles.default</param-name>
+        <param-name>spring.profiles.default</param-name>
         <param-value>postgres,datajpa</param-value>
     </context-param>
 
