@@ -66,7 +66,7 @@ public class Pet extends AbstractBaseEntity{
     @Range(min = 5, max = 100)
     private int growth;
 
-    @Column(name = "age",nullable = false)
+    @Column(name = "weight",nullable = false)
     @NotBlank
     private double weight;
 

@@ -1,7 +1,9 @@
 package com.online.shelter.pet.spring_mvc.web;
 
 import com.online.shelter.pet.spring_mvc.AuthorizedUser;
+import com.online.shelter.pet.spring_mvc.service.PetService;
 import com.online.shelter.pet.spring_mvc.service.UserService;
+import com.online.shelter.pet.spring_mvc.util.PetUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class RootController {
     @Autowired
-    private UserService service;
+    private UserService userService;
+
+    @Autowired
+    private PetService petService;
 
     @GetMapping("/")
     public String root() {
@@ -22,7 +27,7 @@ public class RootController {
 
     @GetMapping("/users")
     public String users(Model model) {
-        model.addAttribute("users", service.getAll());
+        model.addAttribute("users", userService.getAll());
         return "users";
     }
 
@@ -31,5 +36,12 @@ public class RootController {
         int userId = Integer.valueOf(request.getParameter("userId"));
         AuthorizedUser.setId(userId);
         return "redirect:pets";
+    }
+
+    @GetMapping("/pets")
+    public String pets(Model model) {
+        model.addAttribute("pets",
+                PetUtil.getWithDownplayWeight(petService.getAll(AuthorizedUser.id()), AuthorizedUser.getNormalWeight()));
+        return "pets";
     }
 }
