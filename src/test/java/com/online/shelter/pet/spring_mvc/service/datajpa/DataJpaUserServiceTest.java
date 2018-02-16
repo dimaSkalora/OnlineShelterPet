@@ -8,17 +8,15 @@ import org.junit.Test;
 import org.springframework.test.context.ActiveProfiles;
 
 import static com.online.shelter.pet.spring_mvc.Profiles.DATAJPA;
-import static com.online.shelter.pet.spring_mvc.UserTestData.USER;
-import static com.online.shelter.pet.spring_mvc.UserTestData.USER_ID;
-import static com.online.shelter.pet.spring_mvc.UserTestData.assertMatch;
+import static com.online.shelter.pet.spring_mvc.UserTestData.*;
 
 @ActiveProfiles(DATAJPA)
 public class DataJpaUserServiceTest extends AbstractJpaUserServiceTest {
     @Test
     public void testGetWithMeals() throws Exception {
-        User user = service.getWithPets(USER_ID);
-        assertMatch(user, USER);
-        PetTestData.assertMatch(user.getPets(), PetTestData.PETS);
+        User admin = service.getWithPets(ADMIN_ID);
+        assertMatch(admin, ADMIN);
+        PetTestData.assertMatch(admin.getPets(), PetTestData.ADMIN_PET2, PetTestData.ADMIN_PET1);
     }
 
     @Test(expected = NotFoundException.class)

@@ -2,6 +2,8 @@ package com.online.shelter.pet.spring_mvc.repository.jpa;
 
 import com.online.shelter.pet.spring_mvc.model.User;
 import com.online.shelter.pet.spring_mvc.repository.UserRepository;
+import org.hibernate.jpa.QueryHints;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,11 +53,15 @@ public class JpaUserRepositoryImpl implements UserRepository {
 
     @Override
     public User getByEmail(String email) {
-        return null;
+        List<User> users = entityManager.createNamedQuery(User.BY_EMAIL, User.class)
+                .setParameter(1, email)
+                .setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false)
+                .getResultList();
+        return (User) DataAccessUtils.singleResult(users);
     }
 
     @Override
     public List<User> getAll() {
-        return null;
+        return entityManager.createNamedQuery(User.ALL_SORTED, User.class).getResultList();
     }
 }
