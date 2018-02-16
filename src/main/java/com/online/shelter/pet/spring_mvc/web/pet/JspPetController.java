@@ -24,7 +24,7 @@ public class JspPetController extends AbstractPetController {
     @GetMapping("/delete")
     public String delete(HttpServletRequest request) {
         super.delete(getId(request));
-        return "redirect:pets";
+        return "redirect:/pets";
     }
 
     @GetMapping("/update")
@@ -52,7 +52,7 @@ public class JspPetController extends AbstractPetController {
         } else {
             super.update(pet, getId(request));
         }
-        return "redirect:pets";
+        return "redirect:/pets";
     }
 
     @PostMapping("/filter")
