@@ -9,7 +9,8 @@ INSERT INTO users (name, email, password) VALUES
 
 INSERT INTO user_roles (role, user_id) VALUES
   ('ROLE_USER', 100000),
-  ('ROLE_ADMIN', 100001);
+    ('ROLE_ADMIN', 100001),
+  ('ROLE_USER', 100001);
 
 INSERT INTO pets (createdDate, typePet, namePet, breed, sex, color, age, growth, weight, namePerson, phone, email, user_id) VALUES
 ('2018-01-29 10:00:00','Dog','d1','таксф','w','чорный',1.5,40,16,'петя','0631234567','gui@ki',100000),
