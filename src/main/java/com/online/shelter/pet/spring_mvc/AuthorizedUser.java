@@ -1,7 +1,7 @@
 package com.online.shelter.pet.spring_mvc;
 
 import com.online.shelter.pet.spring_mvc.model.AbstractBaseEntity;
-import com.online.shelter.pet.spring_mvc.util.PetUtil;
+import com.online.shelter.pet.spring_mvc.util.PetsUtil;
 
 public class AuthorizedUser {
     private static int id = AbstractBaseEntity.START_SEQ;
@@ -15,6 +15,6 @@ public class AuthorizedUser {
     }
 
     public static double getNormalWeight() {
-        return PetUtil.DEFAULT_NOLMAL_WEIGHT;
+        return PetsUtil.DEFAULT_NOLMAL_WEIGHT;
     }
 }

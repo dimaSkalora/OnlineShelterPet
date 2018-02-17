@@ -3,7 +3,7 @@ package com.online.shelter.pet.spring_mvc.web;
 import com.online.shelter.pet.spring_mvc.AuthorizedUser;
 import com.online.shelter.pet.spring_mvc.service.PetService;
 import com.online.shelter.pet.spring_mvc.service.UserService;
-import com.online.shelter.pet.spring_mvc.util.PetUtil;
+import com.online.shelter.pet.spring_mvc.util.PetsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,7 +41,7 @@ public class RootController {
     @GetMapping("/pets")
     public String pets(Model model) {
         model.addAttribute("pets",
-                PetUtil.getWithDownplayWeight(petService.getAll(AuthorizedUser.id()), AuthorizedUser.getNormalWeight()));
+                PetsUtil.getWithDownplayWeight(petService.getAll(AuthorizedUser.id()), AuthorizedUser.getNormalWeight()));
         return "pets";
     }
 }

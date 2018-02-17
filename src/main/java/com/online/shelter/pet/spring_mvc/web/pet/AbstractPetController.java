@@ -5,7 +5,7 @@ import com.online.shelter.pet.spring_mvc.model.Pet;
 import com.online.shelter.pet.spring_mvc.service.PetService;
 import com.online.shelter.pet.spring_mvc.to.PetWithDownplayWeight;
 import com.online.shelter.pet.spring_mvc.util.DateTimeUtil;
-import com.online.shelter.pet.spring_mvc.util.PetUtil;
+import com.online.shelter.pet.spring_mvc.util.PetsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class AbstractPetController {
     public List<PetWithDownplayWeight> getAll() {
         int userId = AuthorizedUser.id();
         log.info("getAll for user {}", userId);
-        return PetUtil.getWithDownplayWeight(service.getAll(userId), AuthorizedUser.getNormalWeight());
+        return PetsUtil.getWithDownplayWeight(service.getAll(userId), AuthorizedUser.getNormalWeight());
     }
 
     public Pet create(Pet pet) {
@@ -70,7 +70,7 @@ public class AbstractPetController {
                 startDate != null ? startDate : DateTimeUtil.MIN_DATE,
                 endDate != null ? endDate : DateTimeUtil.MAX_DATE, userId);
 
-        return PetUtil.getFilteredWithDownplayWeight(mealsDateFiltered,
+        return PetsUtil.getFilteredWithDownplayWeight(mealsDateFiltered,
                 startTime != null ? startTime : LocalTime.MIN,
                 endTime != null ? endTime : LocalTime.MAX, Arrays.asList("Cat","Dog","Others"),
                 AuthorizedUser.getNormalWeight()

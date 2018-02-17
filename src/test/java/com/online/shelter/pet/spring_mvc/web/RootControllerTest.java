@@ -2,7 +2,7 @@ package com.online.shelter.pet.spring_mvc.web;
 
 import com.online.shelter.pet.spring_mvc.AuthorizedUser;
 import com.online.shelter.pet.spring_mvc.PetTestData;
-import com.online.shelter.pet.spring_mvc.util.PetUtil;
+import com.online.shelter.pet.spring_mvc.util.PetsUtil;
 import org.junit.Test;
 
 import static com.online.shelter.pet.spring_mvc.UserTestData.USER;
@@ -37,6 +37,6 @@ public class RootControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("pets"))
                 .andExpect(forwardedUrl("/WEB-INF/jsp/pets.jsp"))
-                .andExpect(model().attribute("pets", PetUtil.getWithDownplayWeight(PetTestData.PETS, AuthorizedUser.getNormalWeight())));
+                .andExpect(model().attribute("pets", PetsUtil.getWithDownplayWeight(PetTestData.PETS, AuthorizedUser.getNormalWeight())));
     }
 }

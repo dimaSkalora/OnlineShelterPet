@@ -8,8 +8,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-public class PetUtil {
-    private PetUtil() {
+public class PetsUtil {
+    private PetsUtil() {
     }
 
     public static final double DEFAULT_NOLMAL_WEIGHT = 0.2;
