@@ -12,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 
 
+import java.util.Arrays;
+
 import static com.online.shelter.pet.spring_mvc.PetTestData.*;
 import static com.online.shelter.pet.spring_mvc.TestUtil.contentJson;
 import static com.online.shelter.pet.spring_mvc.TestUtil.contentJsonArray;
@@ -82,12 +84,23 @@ public class PetRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testGetBetween() throws Exception {
-        mockMvc.perform(get(REST_URL + "between?startDateTime=2015-05-30T07:00&endDateTime=2015-05-31T11:00:00"))
+    public void testFilter() throws Exception {
+        mockMvc.perform(get(REST_URL + "filter")
+                .param("startDate", "2017-05-30").param("startTime", "07:00")
+                .param("endDate", "2018-02-31").param("endTime", "11:00"))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(contentJsonArray(
                         PetsUtil.createWithDownplayWeight(PET4, true),
                         PetsUtil.createWithDownplayWeight(PET1, false)));
     }
+
+    @Test
+    public void testFilterAll() throws Exception {
+        mockMvc.perform(get(REST_URL + "filter?startDate=&endTime="))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(contentJson(PetsUtil.getWithDownplayWeight(Arrays.asList( PET6, PET5, PET4, PET3, PET2,PET1), USER.getNormalWeight())));
+    }
+
 }
