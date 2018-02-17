@@ -2,6 +2,7 @@ package com.online.shelter.pet.spring_mvc.to;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class PetWithDownplayWeight {
     private final Integer id;
@@ -92,6 +93,34 @@ public class PetWithDownplayWeight {
 
     public boolean isDownplayWeight() {
         return downplayWeight;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PetWithDownplayWeight that = (PetWithDownplayWeight) o;
+        return weight == that.weight &&
+                downplayWeight == that.downplayWeight &&
+                Objects.equals(id, that.id) &&
+                Objects.equals(createdDate, that.createdDate) &&
+                Objects.equals(typePet, that.typePet) &&
+                Objects.equals(namePet, that.namePet) &&
+                Objects.equals(breed, that.breed) &&
+                Objects.equals(sex, that.sex) &&
+                Objects.equals(color, that.color) &&
+                Objects.equals(age, that.age) &&
+                Objects.equals(growth, that.growth) &&
+                Objects.equals(namePerson, that.namePerson) &&
+                Objects.equals(phone, that.phone) &&
+                Objects.equals(email, that.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, createdDate, typePet, namePet, breed,sex,color,age,
+                growth,weight,namePerson,phone,email);
     }
 
     @Override
