@@ -17,6 +17,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!--Spring-->
         <spring.version>4.3.14.RELEASE</spring.version>
+        <spring-security.version>4.2.4.RELEASE</spring-security.version>
         <spring-data.version>2.0.3.RELEASE</spring-data.version>
         <!-- Logging -->
         <logback.version>1.2.3</logback.version>
@@ -359,6 +360,24 @@
             <version>${javax-el.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <!--security-->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
+
 
 
         <!-- Webjars (static dependencies distributed as JAR files) -->
