@@ -12,8 +12,6 @@ public class PetsUtil {
     private PetsUtil() {
     }
 
-    public static final double DEFAULT_NOLMAL_WEIGHT = 0.2;
-
     //отобрасить список PetWithDownplayWeight
     public static List<PetWithDownplayWeight> getWithDownplayWeight(Collection<Pet> pets, double normalWeight){
         return getFilteredWithDownplayWeight(pets,LocalTime.MIN, LocalTime.MAX, Arrays.asList("Cat","Dog","Others"),normalWeight);

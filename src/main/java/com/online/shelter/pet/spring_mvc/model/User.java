@@ -1,6 +1,5 @@
 package com.online.shelter.pet.spring_mvc.model;
 
-import com.online.shelter.pet.spring_mvc.util.PetsUtil;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -12,6 +11,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.*;
+
+import static com.online.shelter.pet.spring_mvc.util.UserUtil.DEFAULT_NOLMAL_WEIGHT;
 
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @NamedQueries({
@@ -58,7 +59,7 @@ public class User extends AbstractNamedEntity{
     private boolean enabled = true;
 
     @Column(name = "normal_weight", columnDefinition = "double default = 0.2")
-    private double normalWeight = PetsUtil.DEFAULT_NOLMAL_WEIGHT;
+    private double normalWeight = DEFAULT_NOLMAL_WEIGHT;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
     @OrderBy("createdDate DESC")
@@ -73,7 +74,7 @@ public class User extends AbstractNamedEntity{
     }
 
     public User(Integer id, String name, String email, String password, Role role, Role... roles){
-        this(id,name,email,password, PetsUtil.DEFAULT_NOLMAL_WEIGHT,true, new Date(), EnumSet.of(role,roles));
+        this(id,name,email,password, DEFAULT_NOLMAL_WEIGHT,true, new Date(), EnumSet.of(role,roles));
     }
 
     public User(Integer id, String name, String email, String password,double normalWeight, boolean enabled,Date registered, Collection<Role> roles ) {
