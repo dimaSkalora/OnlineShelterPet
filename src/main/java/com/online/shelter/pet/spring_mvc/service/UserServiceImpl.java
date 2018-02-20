@@ -5,6 +5,7 @@ import com.online.shelter.pet.spring_mvc.repository.UserRepository;
 import com.online.shelter.pet.spring_mvc.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.CacheEvict;
@@ -59,6 +60,15 @@ public class UserServiceImpl implements UserService{
     public void update(User user) {
         Assert.notNull(user, "user must not be null");
         checkNotFoundWithId(userRepository.save(user), user.getId());
+    }
+
+    @CacheEvict(value = "users", allEntries = true)
+    @Override
+    @Transactional
+    public void enable(int id, boolean enabled) {
+        User user = get(id);
+        user.setEnabled(enabled);
+        userRepository.save(user);
     }
 
     @Override
