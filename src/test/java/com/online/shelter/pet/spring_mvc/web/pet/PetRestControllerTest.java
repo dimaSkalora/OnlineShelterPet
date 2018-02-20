@@ -45,7 +45,7 @@ public class PetRestControllerTest extends AbstractControllerTest {
     @Test
     public void testDelete() throws Exception {
         mockMvc.perform(delete(REST_URL + PET_ID))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
         assertMatch(service.getAll(START_SEQ), PET6, PET5, PET4, PET3, PET2);
     }
 

@@ -3,6 +3,7 @@ package com.online.shelter.pet.spring_mvc.web.pet;
 import com.online.shelter.pet.spring_mvc.model.Pet;
 import com.online.shelter.pet.spring_mvc.to.PetWithDownplayWeight;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,7 @@ public class PetRestController extends AbstractPetController {
 
     @Override
     @DeleteMapping("/{id}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") int id) {
         super.delete(id);
     }
