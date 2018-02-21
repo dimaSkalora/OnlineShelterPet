@@ -39,7 +39,7 @@ public class AbstractPetController {
     public List<PetWithDownplayWeight> getAll() {
         int userId = AuthorizedUser.id();
         log.info("getAll for user {}", userId);
-        return PetsUtil.getWithDownplayWeight(service.getAll(userId), AuthorizedUser.getNormalWeight());
+        return PetsUtil.getWithDownplayWeight(service.getAll(userId), AuthorizedUser.getDownplayWeight());
     }
 
     public Pet create(Pet pet) {
@@ -73,7 +73,7 @@ public class AbstractPetController {
         return PetsUtil.getFilteredWithDownplayWeight(mealsDateFiltered,
                 startTime != null ? startTime : LocalTime.MIN,
                 endTime != null ? endTime : LocalTime.MAX, Arrays.asList("Cat","Dog","Others"),
-                AuthorizedUser.getNormalWeight()
+                AuthorizedUser.getDownplayWeight()
         );
     }
 }

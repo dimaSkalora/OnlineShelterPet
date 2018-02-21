@@ -36,7 +36,7 @@ public class RootController {
     @GetMapping("/pets")
     public String pets(Model model) {
         model.addAttribute("pets",
-                PetsUtil.getWithDownplayWeight(petService.getAll(AuthorizedUser.id()), AuthorizedUser.getNormalWeight()));
+                PetsUtil.getWithDownplayWeight(petService.getAll(AuthorizedUser.id()), AuthorizedUser.getDownplayWeight()));
         return "pets";
     }
 }
