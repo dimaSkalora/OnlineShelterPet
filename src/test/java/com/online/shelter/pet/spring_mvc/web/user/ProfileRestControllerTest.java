@@ -3,6 +3,8 @@ package com.online.shelter.pet.spring_mvc.web.user;
 import com.online.shelter.pet.spring_mvc.TestUtil;
 import com.online.shelter.pet.spring_mvc.model.Role;
 import com.online.shelter.pet.spring_mvc.model.User;
+import com.online.shelter.pet.spring_mvc.to.UserTo;
+import com.online.shelter.pet.spring_mvc.util.UserUtil;
 import com.online.shelter.pet.spring_mvc.web.AbstractControllerTest;
 import com.online.shelter.pet.spring_mvc.web.json.JsonUtil;
 import org.junit.Test;
@@ -36,12 +38,13 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testUpdate() throws Exception {
-        User updated = new User(USER_ID, "newName", "newemail@ya.ru", "newPassword", Role.ROLE_USER);
+        UserTo updatedTo = new UserTo(null, "newName", "newemail@ya.ru", "newPassword");
+
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(updated)))
+                .content(JsonUtil.writeValue(updatedTo)))
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        assertMatch(new User(userService.getByEmail("newemail@ya.ru")), updated);
+        assertMatch(userService.getByEmail("newemail@ya.ru"), UserUtil.updateFromTo(new User(USER), updatedTo));
     }
 }

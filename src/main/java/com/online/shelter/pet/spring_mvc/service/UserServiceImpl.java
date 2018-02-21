@@ -2,6 +2,8 @@ package com.online.shelter.pet.spring_mvc.service;
 
 import com.online.shelter.pet.spring_mvc.model.User;
 import com.online.shelter.pet.spring_mvc.repository.UserRepository;
+import com.online.shelter.pet.spring_mvc.to.UserTo;
+import com.online.shelter.pet.spring_mvc.util.UserUtil;
 import com.online.shelter.pet.spring_mvc.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,6 +62,14 @@ public class UserServiceImpl implements UserService{
     public void update(User user) {
         Assert.notNull(user, "user must not be null");
         checkNotFoundWithId(userRepository.save(user), user.getId());
+    }
+
+    @CacheEvict(value = "users", allEntries = true)
+    @Transactional
+    @Override
+    public void update(UserTo userTo) {
+        User user = get(userTo.getId());
+        userRepository.save(UserUtil.updateFromTo(user, userTo));
     }
 
     @CacheEvict(value = "users", allEntries = true)

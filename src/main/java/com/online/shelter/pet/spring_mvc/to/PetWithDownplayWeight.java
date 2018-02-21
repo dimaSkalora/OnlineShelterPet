@@ -1,11 +1,9 @@
 package com.online.shelter.pet.spring_mvc.to;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class PetWithDownplayWeight {
-    private final Integer id;
+public class PetWithDownplayWeight extends BaseTo {
     private final LocalDateTime createdDate;
     private final String typePet;
     private final String namePet;
@@ -23,7 +21,7 @@ public class PetWithDownplayWeight {
     private final boolean downplayWeight;
 
     public PetWithDownplayWeight(Integer id, LocalDateTime createdDate, String typePet, String namePet, String breed, String sex, String color, double age, int growth, double weight, String namePerson, String phone, String email, boolean downplayWeight) {
-        this.id = id;
+        super(id);
         this.createdDate = createdDate;
         this.typePet = typePet;
         this.namePet = namePet;
@@ -37,10 +35,6 @@ public class PetWithDownplayWeight {
         this.phone = phone;
         this.email = email;
         this.downplayWeight = downplayWeight;
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public LocalDateTime getCreatedDate() {

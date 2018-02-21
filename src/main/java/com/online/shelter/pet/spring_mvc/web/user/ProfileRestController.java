@@ -2,6 +2,7 @@ package com.online.shelter.pet.spring_mvc.web.user;
 
 import com.online.shelter.pet.spring_mvc.AuthorizedUser;
 import com.online.shelter.pet.spring_mvc.model.User;
+import com.online.shelter.pet.spring_mvc.to.UserTo;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +22,8 @@ public class ProfileRestController extends AbstractUserController {
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody User user) {
-        super.update(user, AuthorizedUser.id());
+    public void update(@RequestBody UserTo userTo) {
+        super.update(userTo, AuthorizedUser.id());
     }
 
     @GetMapping(value = "/text")
