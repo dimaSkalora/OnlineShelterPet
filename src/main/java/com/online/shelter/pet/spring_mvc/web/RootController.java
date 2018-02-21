@@ -14,15 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class RootController {
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private PetService petService;
 
     @GetMapping("/")
     public String root() {
-        return "index";
+        return "redirect:pets";
     }
 
     @GetMapping("/users")
@@ -30,11 +28,9 @@ public class RootController {
         return "users";
     }
 
-    @PostMapping("/users")
-    public String setUser(HttpServletRequest request) {
-        int userId = Integer.valueOf(request.getParameter("userId"));
-        AuthorizedUser.setId(userId);
-        return "redirect:pets";
+    @GetMapping(value = "/login")
+    public String login() {
+        return "login";
     }
 
     @GetMapping("/pets")
