@@ -1,11 +1,15 @@
 package com.online.shelter.pet.spring_mvc.service;
 
+import com.online.shelter.pet.spring_mvc.AuthorizedUser;
 import com.online.shelter.pet.spring_mvc.model.User;
 import com.online.shelter.pet.spring_mvc.repository.UserRepository;
 import com.online.shelter.pet.spring_mvc.to.UserTo;
 import com.online.shelter.pet.spring_mvc.util.UserUtil;
 import com.online.shelter.pet.spring_mvc.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -17,8 +21,8 @@ import java.util.List;
 import static com.online.shelter.pet.spring_mvc.util.ValidationUtil.checkNotFound;
 import static com.online.shelter.pet.spring_mvc.util.ValidationUtil.checkNotFoundWithId;
 
-@Service
-public class UserServiceImpl implements UserService{
+@Service("userService")
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private UserRepository userRepository;
 
@@ -84,5 +88,14 @@ public class UserServiceImpl implements UserService{
     @Override
     public User getWithPets(int id) {
         return checkNotFoundWithId(userRepository.getWithPets(id), id);
+    }
+
+    @Override
+    public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.getByEmail(email.toLowerCase());
+        if (user == null) {
+            throw new UsernameNotFoundException("User " + email + " is not found");
+        }
+        return new AuthorizedUser(user);
     }
 }

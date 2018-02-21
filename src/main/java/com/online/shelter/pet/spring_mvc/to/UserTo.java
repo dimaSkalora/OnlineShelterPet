@@ -1,10 +1,15 @@
 package com.online.shelter.pet.spring_mvc.to;
 
+import com.online.shelter.pet.spring_mvc.util.UserUtil;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
-public class UserTo extends BaseTo {
+public class UserTo extends BaseTo implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @NotBlank
     private String name;
@@ -16,14 +21,18 @@ public class UserTo extends BaseTo {
     @Size(min = 5, max = 32, message = "length must between 5 and 32 characters")
     private String password;
 
+    @NotNull
+    private Double downplayWeight = UserUtil.DEFAULT_NOLMAL_WEIGHT;
+
     public UserTo() {
     }
 
-    public UserTo(Integer id, String name, String email, String password) {
+    public UserTo(Integer id, String name, String email, String password, Double downplayWeight) {
         super(id);
         this.name = name;
         this.email = email;
         this.password = password;
+        this.downplayWeight = downplayWeight;
     }
 
     public String getPassword() {
@@ -50,12 +59,18 @@ public class UserTo extends BaseTo {
         this.email = email;
     }
 
+    public Double getDownplayWeight() {
+        return downplayWeight;
+    }
+
     @Override
     public String toString() {
         return "UserTo{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", downplayWeight=" + downplayWeight +
+                ", id=" + id +
                 '}';
     }
 }
