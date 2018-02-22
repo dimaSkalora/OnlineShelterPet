@@ -5,11 +5,13 @@ import com.online.shelter.pet.spring_mvc.service.PetService;
 import com.online.shelter.pet.spring_mvc.service.UserService;
 import com.online.shelter.pet.spring_mvc.to.UserTo;
 import com.online.shelter.pet.spring_mvc.util.PetsUtil;
+import com.online.shelter.pet.spring_mvc.util.UserUtil;
 import com.online.shelter.pet.spring_mvc.web.user.AbstractUserController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,7 +59,26 @@ public class RootController extends AbstractUserController{
             super.update(userTo, AuthorizedUser.id());
             AuthorizedUser.get().update(userTo);
             status.setComplete();
-            return "redirect:meals";
+            return "redirect:pets";
+        }
+    }
+
+    @GetMapping("/register")
+    public String register(ModelMap model) {
+        model.addAttribute("userTo", new UserTo());
+        model.addAttribute("register", true);
+        return "profile";
+    }
+
+    @PostMapping("/register")
+    public String saveRegister(@Valid UserTo userTo, BindingResult result, SessionStatus status, ModelMap model) {
+        if (result.hasErrors()) {
+            model.addAttribute("register", true);
+            return "profile";
+        } else {
+            super.create(UserUtil.createNewFromTo(userTo));
+            status.setComplete();
+            return "redirect:login?message=app.registered&username=" + userTo.getEmail();
         }
     }
 }
