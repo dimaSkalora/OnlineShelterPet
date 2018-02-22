@@ -1,5 +1,6 @@
 package com.online.shelter.pet.spring_mvc.model;
 
+import com.online.shelter.pet.spring_mvc.util.DateTimeUtil;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
@@ -31,7 +32,7 @@ public class Pet extends AbstractBaseEntity{
 
     @Column(name = "createdDate",nullable = false)
     @NotNull
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
     private LocalDateTime createdDate;
 
     @Column(name = "typePet", nullable=false)

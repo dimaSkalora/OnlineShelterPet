@@ -104,7 +104,7 @@
                                 code="pet.createdDate"/></label>
 
                         <div class="col-xs-9">
-                            <input type="datetime-local" class="form-control" id="createdDate" name="createdDate"
+                            <input class="form-control" id="createdDate" name="createdDate"
                                    placeholder="<spring:message code="pet.createdDate"/>">
                         </div>
                     </div>
