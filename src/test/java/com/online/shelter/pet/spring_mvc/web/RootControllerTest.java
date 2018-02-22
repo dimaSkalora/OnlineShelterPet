@@ -40,7 +40,6 @@ public class RootControllerTest extends AbstractControllerTest {
                 .with(userAuth(USER)))
                 .andDo(print())
                 .andExpect(view().name("pets"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/pets.jsp"))
-                .andExpect(model().attribute("pets", PetsUtil.getWithDownplayWeight(PetTestData.PETS, USER.getNormalWeight())));
+                .andExpect(forwardedUrl("/WEB-INF/jsp/pets.jsp"));
     }
 }
