@@ -15,6 +15,10 @@
     <!-- serve static resources (*.html, ...) from src/main/webapp/ -->
     <mvc:default-servlet-handler/>
 
+    <mvc:interceptors>
+        <bean class="com.online.shelter.pet.spring_mvc.web.interceptor.ModelInterceptor"/>
+    </mvc:interceptors>
+
     <mvc:annotation-driven conversion-service="conversionService">
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
