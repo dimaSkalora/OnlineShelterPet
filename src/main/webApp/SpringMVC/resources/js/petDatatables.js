@@ -5,7 +5,7 @@ function updateTable() {
     $.ajax({
         type: "POST",
         url: ajaxUrl + "filter",
-        data: $("#filter").serialize(),
+        data: $("#filter").serialize()
     }).done(updateTableByData);
 }
 
@@ -16,11 +16,21 @@ function clearFilter() {
 
 $(function () {
     datatableApi = $("#datatable").DataTable({
+        "ajax": {
+            "url": ajaxUrl,
+            "dataSrc": ""
+        },
         "paging": false,
         "info": true,
         "columns": [
             {
-                "data": "createdDate"
+                "data": "createdDate",
+                "render": function (date, type, row) {
+                    if (type === 'display') {
+                        return date.replace('T', ' ').substr(0, 16);
+                    }
+                    return date;
+                }
             },
             {
                 "data": "typePet"
@@ -56,11 +66,13 @@ $(function () {
                 "data": "email"
             },
             {
-                "defaultContent": "Edit",
+                "render": renderEditBtn,
+                "defaultContent": "",
                 "orderable": false
             },
             {
-                "defaultContent": "Delete",
+                "render": renderDeleteBtn,
+                "defaultContent": "",
                 "orderable": false
             }
         ],
@@ -69,7 +81,10 @@ $(function () {
                 0,
                 "desc"
             ]
-        ]
+        ],
+        "createdRow": function (row, data, dataIndex) {
+            $(row).addClass(data.exceed ? 'exceeded' : 'normal');
+        },
+        "initComplete": makeEditable
     });
-    makeEditable();
 });

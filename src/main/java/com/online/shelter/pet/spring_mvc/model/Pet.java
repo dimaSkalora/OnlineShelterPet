@@ -3,6 +3,7 @@ package com.online.shelter.pet.spring_mvc.model;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -30,6 +31,7 @@ public class Pet extends AbstractBaseEntity{
 
     @Column(name = "createdDate",nullable = false)
     @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime createdDate;
 
     @Column(name = "typePet", nullable=false)
@@ -59,16 +61,16 @@ public class Pet extends AbstractBaseEntity{
 
     @Column(name = "age", nullable = false)
     @NotBlank
-    private double age;
+    private Double age;
 
     @Column(name = "growth", nullable = false)
     @NotBlank
     @Range(min = 5, max = 100)
-    private int growth;
+    private Integer growth;
 
     @Column(name = "weight",nullable = false)
     @NotBlank
-    private double weight;
+    private Double weight;
 
     @Column(name = "namePerson", nullable = false)
     @NotBlank
@@ -194,15 +196,15 @@ public class Pet extends AbstractBaseEntity{
         this.color = color;
     }
 
-    public void setAge(double age) {
+    public void setAge(Double age) {
         this.age = age;
     }
 
-    public void setGrowth(int growth) {
+    public void setGrowth(Integer growth) {
         this.growth = growth;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 

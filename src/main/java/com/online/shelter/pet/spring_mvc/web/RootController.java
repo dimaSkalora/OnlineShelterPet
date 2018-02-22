@@ -15,9 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class RootController {
 
-    @Autowired
-    private PetService petService;
-
     @GetMapping("/")
     public String root() {
         return "redirect:pets";
@@ -34,9 +31,7 @@ public class RootController {
     }
 
     @GetMapping("/pets")
-    public String pets(Model model) {
-        model.addAttribute("pets",
-                PetsUtil.getWithDownplayWeight(petService.getAll(AuthorizedUser.id()), AuthorizedUser.getDownplayWeight()));
+    public String pets() {
         return "pets";
     }
 }

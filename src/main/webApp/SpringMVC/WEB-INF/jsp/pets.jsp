@@ -84,33 +84,6 @@
                 <th></th>
             </tr>
             </thead>
-            <c:forEach items="${pets}" var="pet">
-                <jsp:useBean id="pet" scope="page" type="com.online.shelter.pet.spring_mvc.to.PetWithDownplayWeight"/>
-                <tr class="${pet.downplayWeight ? 'reduced' : 'normal'}">
-                    <td>
-                            <%--${pet.dateTime.toLocalDate()} ${pet.dateTime.toLocalTime()}--%>
-                            <%--<%=DateTimeUtil.toString(pet.getCreatedDate())%>--%>
-                            <%--${fn:replace(pet.dateTime, 'T', ' ')}--%>
-                            ${fn:formatDateTime(pet.createdDate)}
-                            <%--    ${pet.createdDate}--%>
-                    </td>
-                    <td>${pet.typePet}</td>
-                    <td>${pet.namePet}</td>
-                    <td>${pet.breed}</td>
-                    <td>${pet.sex}</td>
-                    <td>${pet.color}</td>
-                    <td>${pet.age}</td>
-                    <td>${pet.growth}</td>
-                    <td>${pet.weight}</td>
-                    <td>${pet.namePerson}</td>
-                    <td>${pet.phone}</td>
-                    <td>${pet.email}</td>
-                    <td><a><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
-                    <td><a onclick="deleteRow(${pet.id})">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </a></td>
-                </tr>
-            </c:forEach>
         </table>
     </div>
 </div>
@@ -120,7 +93,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title" id="modalTitle"><spring:message code="pet.add"/></h2>
+                <h2 class="modal-title" id="modalTitle"></h2>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="detailsForm">
@@ -260,4 +233,9 @@
 </div>
 <jsp:include page="fragments/footer.jsp"/>
 </body>
+<jsp:include page="fragments/i18n.jsp"/>
+<script type="text/javascript">
+    i18n["addTitle"] = '<spring:message code="pet.add"/>';
+    i18n["editTitle"] = '<spring:message code="pet.edit"/>';
+</script>
 </html>

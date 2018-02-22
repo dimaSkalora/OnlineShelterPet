@@ -2,13 +2,16 @@ package com.online.shelter.pet.spring_mvc.web.pet;
 
 import com.online.shelter.pet.spring_mvc.model.Pet;
 import com.online.shelter.pet.spring_mvc.to.PetWithDownplayWeight;
-import org.springframework.format.annotation.DateTimeFormat;
+import com.online.shelter.pet.spring_mvc.util.ValidationUtil;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.validation.Valid;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -23,30 +26,28 @@ public class PetAjaxController  extends AbstractPetController {
     }
 
     @Override
+    @GetMapping(value = "/{id}")
+    public Pet get(@PathVariable("id") int id) {
+        return super.get(id);
+    }
+
+    @Override
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
         super.delete(id);
     }
 
     @PostMapping
-    public void createOrUpdate(@RequestParam("id") Integer id,
-                               @RequestParam("createdDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime createdDate,
-                               @RequestParam("typePet") String typePet,
-                               @RequestParam("namePet") String namePet,
-                               @RequestParam("breed") String breed,
-                               @RequestParam("sex") String sex,
-                               @RequestParam("color") String color,
-                               @RequestParam("age") double age,
-                               @RequestParam("growth") int growth,
-                               @RequestParam("weight") double weight,
-                               @RequestParam("namePerson") String namePerson,
-                               @RequestParam("phone") String phone,
-                               @RequestParam("email") String email) {
-        Pet pet = new Pet(id, createdDate, typePet, namePet, breed,sex, color, age,
-                growth, weight, namePerson, phone, email);
+    public ResponseEntity<String> createOrUpdate(@Valid Pet pet, BindingResult result) {
+        if (result.hasErrors()) {
+            return ValidationUtil.getErrorResponse(result);
+        }
         if (pet.isNew()) {
             super.create(pet);
+        } else {
+            super.update(pet, pet.getId());
         }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
