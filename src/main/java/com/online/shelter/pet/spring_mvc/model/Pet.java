@@ -1,5 +1,6 @@
 package com.online.shelter.pet.spring_mvc.model;
 
+import com.online.shelter.pet.spring_mvc.View;
 import com.online.shelter.pet.spring_mvc.util.DateTimeUtil;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -91,7 +92,7 @@ public class Pet extends AbstractBaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @NotNull
+    @NotNull(groups = View.Persist.class)
     private User user;
 
     public Pet() {
