@@ -3,18 +3,23 @@ package com.online.shelter.pet.spring_mvc.web;
 import com.online.shelter.pet.spring_mvc.AuthorizedUser;
 import com.online.shelter.pet.spring_mvc.service.PetService;
 import com.online.shelter.pet.spring_mvc.service.UserService;
+import com.online.shelter.pet.spring_mvc.to.UserTo;
 import com.online.shelter.pet.spring_mvc.util.PetsUtil;
+import com.online.shelter.pet.spring_mvc.web.user.AbstractUserController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller
-public class RootController {
+public class RootController extends AbstractUserController{
 
     @GetMapping("/")
     public String root() {
@@ -36,5 +41,23 @@ public class RootController {
     @GetMapping("/pets")
     public String pets() {
         return "pets";
+    }
+
+
+    @GetMapping("/profile")
+    public String profile() {
+        return "profile";
+    }
+
+    @PostMapping("/profile")
+    public String updateProfile(@Valid UserTo userTo, BindingResult result, SessionStatus status) {
+        if (result.hasErrors()) {
+            return "profile";
+        } else {
+            super.update(userTo, AuthorizedUser.id());
+            AuthorizedUser.get().update(userTo);
+            status.setComplete();
+            return "redirect:meals";
+        }
     }
 }

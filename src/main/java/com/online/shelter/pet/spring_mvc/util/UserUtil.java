@@ -9,7 +9,7 @@ public class UserUtil {
     public static final double DEFAULT_NOLMAL_WEIGHT = 0.2;
 
     public static User createNewFromTo(UserTo newUser) {
-        return new User(null, newUser.getName(), newUser.getEmail().toLowerCase(), newUser.getPassword(), Role.ROLE_USER);
+        return new User(null, newUser.getName(), newUser.getEmail().toLowerCase(), newUser.getPassword(),newUser.getDownplayWeight(), Role.ROLE_USER);
     }
 
     public static UserTo asTo(User user) {
@@ -21,6 +21,7 @@ public class UserUtil {
         user.setName(userTo.getName());
         user.setEmail(userTo.getEmail().toLowerCase());
         user.setPassword(userTo.getPassword());
+        user.setNormalWeight(userTo.getDownplayWeight());
         return user;
     }
 }
