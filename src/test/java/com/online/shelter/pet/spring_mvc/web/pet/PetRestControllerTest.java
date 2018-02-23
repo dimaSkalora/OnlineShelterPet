@@ -17,6 +17,7 @@ import java.util.Arrays;
 import static com.online.shelter.pet.spring_mvc.PetTestData.*;
 import static com.online.shelter.pet.spring_mvc.TestUtil.contentJson;
 import static com.online.shelter.pet.spring_mvc.TestUtil.contentJsonArray;
+import static com.online.shelter.pet.spring_mvc.TestUtil.userHttpBasic;
 import static com.online.shelter.pet.spring_mvc.UserTestData.USER;
 
 import static com.online.shelter.pet.spring_mvc.model.AbstractBaseEntity.START_SEQ;
@@ -50,6 +51,13 @@ public class PetRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    public void testGetNotFound() throws Exception {
+        mockMvc.perform(get(REST_URL + ADMIN_PET_ID)
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
     public void testUpdate() throws Exception {
         Pet updated = getUpdated();
 
@@ -58,6 +66,14 @@ public class PetRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk());
 
         assertMatch(service.get(PET_ID, START_SEQ), updated);
+    }
+
+    @Test
+    public void testDeleteNotFound() throws Exception {
+        mockMvc.perform(delete(REST_URL + ADMIN_PET_ID)
+                .with(userHttpBasic(USER)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
     }
 
     @Test
