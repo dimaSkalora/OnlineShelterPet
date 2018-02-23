@@ -2,6 +2,7 @@ package com.online.shelter.pet.spring_mvc;
 
 import com.online.shelter.pet.spring_mvc.model.Role;
 import com.online.shelter.pet.spring_mvc.model.User;
+import com.online.shelter.pet.spring_mvc.web.json.JsonUtil;
 import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.util.Arrays;
@@ -37,5 +38,9 @@ public class UserTestData {
 
     public static ResultMatcher contentJson(User expected) {
         return content().json(writeIgnoreProps(expected, "registered", "password"));
+    }
+
+    public static String jsonWithPassword(User user, String passw) {
+        return JsonUtil.writeAdditionProps(user, "password", passw);
     }
 }

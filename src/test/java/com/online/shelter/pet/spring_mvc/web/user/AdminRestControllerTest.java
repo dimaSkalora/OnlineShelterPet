@@ -1,6 +1,7 @@
 package com.online.shelter.pet.spring_mvc.web.user;
 
 import com.online.shelter.pet.spring_mvc.TestUtil;
+import com.online.shelter.pet.spring_mvc.UserTestData;
 import com.online.shelter.pet.spring_mvc.model.Role;
 import com.online.shelter.pet.spring_mvc.model.User;
 import com.online.shelter.pet.spring_mvc.web.AbstractControllerTest;
@@ -85,7 +86,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
         ResultActions action = mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(ADMIN))
-                .content(JsonUtil.writeValue(expected)))
+                .content(UserTestData.jsonWithPassword(expected, "newPass")))
                 .andExpect(status().isCreated());
 
         User returned = TestUtil.readFromJson(action, User.class);
