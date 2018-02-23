@@ -40,6 +40,7 @@ public class PetAjaxController  extends AbstractPetController {
     @PostMapping
     public ResponseEntity<String> createOrUpdate(@Valid Pet pet, BindingResult result) {
         if (result.hasErrors()) {
+            // TODO change to exception handler
             return ValidationUtil.getErrorResponse(result);
         }
         if (pet.isNew()) {
