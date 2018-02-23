@@ -3,6 +3,8 @@ package com.online.shelter.pet.spring_mvc.util;
 import com.online.shelter.pet.spring_mvc.model.Role;
 import com.online.shelter.pet.spring_mvc.model.User;
 import com.online.shelter.pet.spring_mvc.to.UserTo;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.StringUtils;
 
 public class UserUtil {
 
@@ -22,6 +24,14 @@ public class UserUtil {
         user.setEmail(userTo.getEmail().toLowerCase());
         user.setPassword(userTo.getPassword());
         user.setNormalWeight(userTo.getDownplayWeight());
+        return user;
+    }
+
+
+    public static User prepareToSave(User user, PasswordEncoder passwordEncoder) {
+        String password = user.getPassword();
+        user.setPassword(StringUtils.isEmpty(password) ? password : passwordEncoder.encode(password));
+        user.setEmail(user.getEmail().toLowerCase());
         return user;
     }
 }
