@@ -26,4 +26,8 @@
 `curl -s -X POST -d '{ "createdDate":"2018-01-30T07:00","typePet":"Dog","namePet":"d1","breed":"авчарка","sex":"m","color":"белый","age":2,"growth":50,"weight":40.5,"namePerson":вова","phone":"0731234567","email":"aedc@ds"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/OnlineShelterPet/rest/profile/pets --user user@yandex.ru:password`
 
 #### update Pets
-`curl -s -X PUT -d '{ "createdDate":"2018-01-29T17:00","typePet":"Dog","namePet":"d2","breed":"авчарка","sex":"f","color":"белый","age":1.5,"growth":60,"weight":42.5,"namePerson":anna","phone":"0731554567","email":"aeddac@ds"}}' -H 'Content-Type: application/json' http://localhost:8080/OnlineShelterPet/rest/profile/pets/100003 --user user@yandex.ru:password`
+`curl -s -X PUT -d '{ "createdDate":"2018-01-29T17:00","typePet":"Dog","namePet":"d2","breed":"авчарка","sex":"f","color":"белый","age":1.5,"growth":60,"weight":42.5,"namePerson":anna","phone":"0731554567","email":"aeddac@ds"}}' -H 'Content-Type: application/json' http://localhost:8080/OnlineShelterPet/rest/profile/pets/100003 --user user@yandex.ru:password`#### update Pets
+                                                                                                                                                                                                                                                                                                                                                                        
+#### validate with Error
+`curl -s -X PUT -d '{"dateTime":"2018-01-30T07:00"}' -H 'Content-Type: application/json' http://localhost:8080/OnlineShelterPet/rest/profile/pets/100003 --user user@yandex.ru:password`
+`curl -s -X POST -d '{}' -H 'Content-Type: application/json' http://localhost:8080/OnlineShelterPet/rest/admin/users --user admin@gmail.com:admin`

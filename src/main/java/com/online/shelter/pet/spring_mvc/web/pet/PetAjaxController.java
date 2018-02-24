@@ -2,13 +2,8 @@ package com.online.shelter.pet.spring_mvc.web.pet;
 
 import com.online.shelter.pet.spring_mvc.model.Pet;
 import com.online.shelter.pet.spring_mvc.to.PetWithDownplayWeight;
-import com.online.shelter.pet.spring_mvc.util.ValidationUtil;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -38,17 +33,12 @@ public class PetAjaxController  extends AbstractPetController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createOrUpdate(@Valid Pet pet, BindingResult result) {
-        if (result.hasErrors()) {
-            // TODO change to exception handler
-            return ValidationUtil.getErrorResponse(result);
-        }
+    public void createOrUpdate(@Valid Pet pet) {
         if (pet.isNew()) {
             super.create(pet);
         } else {
             super.update(pet, pet.getId());
         }
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.online.shelter.pet.spring_mvc.model.Role;
 import com.online.shelter.pet.spring_mvc.model.User;
 import com.online.shelter.pet.spring_mvc.to.UserTo;
 import com.online.shelter.pet.spring_mvc.util.UserUtil;
+import com.online.shelter.pet.spring_mvc.util.exception.ErrorType;
 import com.online.shelter.pet.spring_mvc.web.AbstractControllerTest;
 import com.online.shelter.pet.spring_mvc.web.json.JsonUtil;
 import org.junit.Test;
@@ -16,6 +17,7 @@ import static com.online.shelter.pet.spring_mvc.web.user.ProfileRestController.R
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class ProfileRestControllerTest extends AbstractControllerTest {
@@ -56,5 +58,19 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk());
 
         assertMatch(userService.getByEmail("newemail@ya.ru"), UserUtil.updateFromTo(new User(USER), updatedTo));
+    }
+
+
+    @Test
+    public void testUpdateInvalid() throws Exception {
+        UserTo updatedTo = new UserTo(null, null, "password", null, 0.2);
+
+        mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(USER))
+                .content(JsonUtil.writeValue(updatedTo)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.name()))
+                .andDo(print());
     }
 }

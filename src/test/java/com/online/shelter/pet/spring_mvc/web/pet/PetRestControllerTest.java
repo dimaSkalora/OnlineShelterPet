@@ -4,6 +4,7 @@ import com.online.shelter.pet.spring_mvc.TestUtil;
 import com.online.shelter.pet.spring_mvc.model.Pet;
 import com.online.shelter.pet.spring_mvc.service.PetService;
 import com.online.shelter.pet.spring_mvc.util.PetsUtil;
+import com.online.shelter.pet.spring_mvc.util.exception.ErrorType;
 import com.online.shelter.pet.spring_mvc.web.AbstractControllerTest;
 import com.online.shelter.pet.spring_mvc.web.json.JsonUtil;
 import org.junit.Test;
@@ -18,12 +19,14 @@ import static com.online.shelter.pet.spring_mvc.PetTestData.*;
 import static com.online.shelter.pet.spring_mvc.TestUtil.contentJson;
 import static com.online.shelter.pet.spring_mvc.TestUtil.contentJsonArray;
 import static com.online.shelter.pet.spring_mvc.TestUtil.userHttpBasic;
+import static com.online.shelter.pet.spring_mvc.UserTestData.ADMIN;
 import static com.online.shelter.pet.spring_mvc.UserTestData.USER;
 
 import static com.online.shelter.pet.spring_mvc.model.AbstractBaseEntity.START_SEQ;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -117,6 +120,33 @@ public class PetRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(contentJson(PetsUtil.getWithDownplayWeight(Arrays.asList( PET6, PET5, PET4, PET3, PET2,PET1), USER.getNormalWeight())));
+    }
+
+
+    @Test
+    public void testCreateInvalid() throws Exception {
+        Pet invalid = new Pet(null, null, "Dummy", "sfvd","cfw","wcs","rwcs",0.5,10,0.6,"ii0","jygf","dhnf");
+        mockMvc.perform(post(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(invalid))
+                .with(userHttpBasic(ADMIN)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.name()))
+                .andDo(print());
+    }
+
+    @Test
+    public void testUpdateInvalid() throws Exception {
+        Pet invalid = new Pet(PET_ID, null,  "Dummy", "sfvd",null,"wcs","rwcs",0.5,10,0.6,"ii0","jygf","dhnf");
+        mockMvc.perform(put(REST_URL + PET_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(invalid))
+                .with(userHttpBasic(USER)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.name()))
+                .andDo(print());
     }
 
 }

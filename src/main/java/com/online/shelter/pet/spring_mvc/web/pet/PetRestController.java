@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -42,12 +43,12 @@ public class PetRestController extends AbstractPetController {
 
     @Override
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody Pet pet, @PathVariable("id") int id) {
+    public void update(@Valid @RequestBody Pet pet, @PathVariable("id") int id) {
         super.update(pet, id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Pet> createWithLocation(@RequestBody Pet pet) {
+    public ResponseEntity<Pet> createWithLocation(@Valid @RequestBody Pet pet) {
         Pet created = super.create(pet);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()

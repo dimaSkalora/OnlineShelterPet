@@ -4,6 +4,7 @@ import com.online.shelter.pet.spring_mvc.TestUtil;
 import com.online.shelter.pet.spring_mvc.UserTestData;
 import com.online.shelter.pet.spring_mvc.model.Role;
 import com.online.shelter.pet.spring_mvc.model.User;
+import com.online.shelter.pet.spring_mvc.util.exception.ErrorType;
 import com.online.shelter.pet.spring_mvc.web.AbstractControllerTest;
 import com.online.shelter.pet.spring_mvc.web.json.JsonUtil;
 import org.junit.Test;
@@ -18,6 +19,7 @@ import static com.online.shelter.pet.spring_mvc.UserTestData.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class AdminRestControllerTest extends AbstractControllerTest {
@@ -74,7 +76,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
         mockMvc.perform(put(REST_URL + USER_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(ADMIN))
-                .content(JsonUtil.writeValue(updated)))
+                .content(jsonWithPassword(updated, USER.getPassword())))
                 .andExpect(status().isOk());
 
         assertMatch(userService.get(USER_ID), updated);
@@ -119,5 +121,31 @@ public class AdminRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(contentJson(ADMIN, USER)));
+    }
+
+    @Test
+    public void testCreateInvalid() throws Exception {
+        User expected = new User(null, null, "", "newPass", 7300, Role.ROLE_USER, Role.ROLE_ADMIN);
+        ResultActions action = mockMvc.perform(post(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(ADMIN))
+                .content(JsonUtil.writeValue(expected)))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.name()))
+                .andDo(print());
+    }
+
+    @Test
+    public void testUpdateInvalid() throws Exception {
+        User updated = new User(USER);
+        updated.setName("");
+        mockMvc.perform(put(REST_URL + USER_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(ADMIN))
+                .content(JsonUtil.writeValue(updated)))
+                .andExpect(status().isUnprocessableEntity())
+                .andDo(print())
+                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.name()))
+                .andDo(print());
     }
 }
