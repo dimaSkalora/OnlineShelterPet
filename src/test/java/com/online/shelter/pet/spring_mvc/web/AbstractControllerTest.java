@@ -3,6 +3,7 @@ package com.online.shelter.pet.spring_mvc.web;
 import com.online.shelter.pet.spring_mvc.AllActiveProfileResolver;
 import com.online.shelter.pet.spring_mvc.repository.JpaUtil;
 import com.online.shelter.pet.spring_mvc.service.UserService;
+import com.online.shelter.pet.spring_mvc.util.exception.ErrorType;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
@@ -19,7 +21,10 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import javax.annotation.PostConstruct;
 
+import java.util.Locale;
+
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
@@ -51,6 +56,9 @@ abstract public class AbstractControllerTest {
     protected UserService userService;
 
     @Autowired
+    protected MessageUtil messageUtil;
+
+    @Autowired
     private WebApplicationContext webApplicationContext;
 
     @PostConstruct
@@ -68,6 +76,19 @@ abstract public class AbstractControllerTest {
         if (jpaUtil != null) {
             jpaUtil.clear2ndLevelHibernateCache();
         }
+    }
+
+
+    protected String getMessage(String code) {
+        return messageUtil.getMessage(code, Locale.ENGLISH);
+    }
+
+    public ResultMatcher errorType(ErrorType type) {
+        return jsonPath("$.type").value(type.name());
+    }
+
+    public ResultMatcher jsonMessage(String path, String code) {
+        return jsonPath(path).value(getMessage(code));
     }
 }
 

@@ -11,6 +11,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.Arrays;
@@ -23,6 +25,7 @@ import static com.online.shelter.pet.spring_mvc.UserTestData.ADMIN;
 import static com.online.shelter.pet.spring_mvc.UserTestData.USER;
 
 import static com.online.shelter.pet.spring_mvc.model.AbstractBaseEntity.START_SEQ;
+import static com.online.shelter.pet.spring_mvc.web.ExceptionInfoHandler.EXCEPTION_DUPLICATE_DATETIME;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -132,7 +135,7 @@ public class PetRestControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.name()))
+                .andExpect(errorType(ErrorType.VALIDATION_ERROR))
                 .andDo(print());
     }
 
@@ -145,8 +148,38 @@ public class PetRestControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(USER)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.name()))
+                //.andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.name()))
+                .andExpect(errorType(ErrorType.VALIDATION_ERROR))
                 .andDo(print());
+    }
+
+    @Test
+    @Transactional(propagation = Propagation.NEVER)
+    public void testUpdateDuplicate() throws Exception {
+        Pet invalid = new Pet(PET_ID, PET2.getCreatedDate(), "Dummy","sfvd","cfw","wcs","rwcs",0.5,10,0.6,"ii0","jygf","dhnf");
+
+        mockMvc.perform(put(REST_URL + PET_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(invalid))
+                .with(userHttpBasic(USER)))
+                .andDo(print())
+                .andExpect(status().isConflict())
+                .andExpect(errorType(ErrorType.DATA_ERROR))
+                .andExpect(jsonMessage("$.details", EXCEPTION_DUPLICATE_DATETIME));
+    }
+
+    @Test
+    @Transactional(propagation = Propagation.NEVER)
+    public void testCreateDuplicate() throws Exception {
+        Pet invalid = new Pet(null, ADMIN_PET1.getCreatedDate(), "Dummy", "sfvd","cfw","wcs","rwcs",0.5,10,0.6,"ii0","jygf","dhnf");
+        mockMvc.perform(post(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(invalid))
+                .with(userHttpBasic(ADMIN)))
+                .andDo(print())
+                .andExpect(status().isConflict())
+                .andExpect(errorType(ErrorType.DATA_ERROR))
+                .andExpect(jsonMessage("$.details", EXCEPTION_DUPLICATE_DATETIME));
     }
 
 }
