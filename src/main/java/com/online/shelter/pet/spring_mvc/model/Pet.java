@@ -5,6 +5,7 @@ import com.online.shelter.pet.spring_mvc.util.DateTimeUtil;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -87,6 +88,7 @@ public class Pet extends AbstractBaseEntity{
     @Column(name = "email", nullable = false)
     @NotBlank
     @Size(min = 5, max = 50)
+    @SafeHtml(groups = {View.Web.class})
     private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)

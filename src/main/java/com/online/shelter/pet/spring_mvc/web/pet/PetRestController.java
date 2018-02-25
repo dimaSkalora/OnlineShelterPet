@@ -1,11 +1,13 @@
 package com.online.shelter.pet.spring_mvc.web.pet;
 
+import com.online.shelter.pet.spring_mvc.View;
 import com.online.shelter.pet.spring_mvc.model.Pet;
 import com.online.shelter.pet.spring_mvc.to.PetWithDownplayWeight;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -43,12 +45,12 @@ public class PetRestController extends AbstractPetController {
 
     @Override
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@Valid @RequestBody Pet pet, @PathVariable("id") int id) {
+    public void update(@Validated(View.Web.class)  @RequestBody Pet pet, @PathVariable("id") int id) {
         super.update(pet, id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Pet> createWithLocation(@Valid @RequestBody Pet pet) {
+    public ResponseEntity<Pet> createWithLocation(@Validated(View.Web.class)  @RequestBody Pet pet) {
         Pet created = super.create(pet);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()

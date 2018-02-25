@@ -1,8 +1,10 @@
 package com.online.shelter.pet.spring_mvc.web.pet;
 
+import com.online.shelter.pet.spring_mvc.View;
 import com.online.shelter.pet.spring_mvc.model.Pet;
 import com.online.shelter.pet.spring_mvc.to.PetWithDownplayWeight;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -33,7 +35,7 @@ public class PetAjaxController  extends AbstractPetController {
     }
 
     @PostMapping
-    public void createOrUpdate(@Valid Pet pet) {
+    public void createOrUpdate(@Validated(View.Web.class)  Pet pet) {
         if (pet.isNew()) {
             super.create(pet);
         } else {

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import static com.online.shelter.pet.spring_mvc.PetTestData.*;
@@ -123,6 +124,20 @@ public class PetRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(contentJson(PetsUtil.getWithDownplayWeight(Arrays.asList( PET6, PET5, PET4, PET3, PET2,PET1), USER.getNormalWeight())));
+    }
+
+
+    @Test
+    public void testUpdateHtmlUnsafe() throws Exception {
+        Pet invalid = new Pet(PET_ID, LocalDateTime.now(), "<script>alert(123)</script>", "sfvd","cfw","wcs","rwcs",0.5,10,0.6,"ii0","jygf","dhnf");
+        mockMvc.perform(put(REST_URL + PET_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(invalid))
+                .with(userHttpBasic(USER)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(errorType(ErrorType.VALIDATION_ERROR))
+                .andDo(print());
     }
 
 

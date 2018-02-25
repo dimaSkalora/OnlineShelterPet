@@ -1,6 +1,7 @@
 package com.online.shelter.pet.spring_mvc.to;
 
 import com.online.shelter.pet.spring_mvc.util.UserUtil;
+import org.hibernate.validator.constraints.SafeHtml;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -13,11 +14,13 @@ public class UserTo extends BaseTo implements Serializable {
 
     @NotBlank
     @Size(min = 2, max = 100)
+    @SafeHtml
     private String name;
 
     @Email
     @NotBlank
     @Size(max = 100)
+    @SafeHtml // https://stackoverflow.com/questions/17480809
     private String email;
 
     @Size(min = 5, max = 32, message = "length must between 5 and 32 characters")
