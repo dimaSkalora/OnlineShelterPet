@@ -37,6 +37,10 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
         return get().userTo.getId();
     }
 
+    public int getId() {
+        return userTo.getId();
+    }
+
     public static double getDownplayWeight() {
         return get().userTo.getDownplayWeight();
     }
