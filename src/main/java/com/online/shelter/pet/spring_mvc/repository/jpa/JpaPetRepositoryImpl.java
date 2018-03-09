@@ -54,6 +54,12 @@ public class JpaPetRepositoryImpl implements PetRepository {
     }
 
     @Override
+    public List<Pet> getAll() {
+        return entityManager.createNamedQuery(Pet.ALL_SORTED, Pet.class)
+                .getResultList();
+    }
+
+    @Override
     public List<Pet> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
         return entityManager.createNamedQuery(Pet.GET_BETWEEN, Pet.class)
                 .setParameter("userId", userId)

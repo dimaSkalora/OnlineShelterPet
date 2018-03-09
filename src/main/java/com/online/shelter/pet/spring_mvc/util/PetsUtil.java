@@ -12,6 +12,29 @@ public class PetsUtil {
     private PetsUtil() {
     }
 
+    //отобрасить список pet
+    public static List<Pet> getPetAll(Collection<Pet> pets){
+        return getFilteredPetAll(pets,LocalTime.MIN, LocalTime.MAX, Arrays.asList("Cat","Dog","Others"));
+    }
+
+    //Список всех pets
+    public static List<Pet> getFilteredPetAll(Collection<Pet> pets, LocalTime startTime, LocalTime endTime, List<String> typePets){
+
+        return pets.stream()
+                .filter(pet -> DateTimeUtil.isBetween(pet.getTime(), startTime, endTime))
+                .filter(pet -> pet.getTypePet().equals(typePets.get(0))
+                        || pet.getTypePet().equals(typePets.get(1)) || pet.getTypePet().equals(typePets.get(2)))
+                .map(pet -> createPet(pet))
+                .collect(Collectors.toList());
+
+    }
+
+    public static Pet createPet(Pet pet) {
+        return new Pet(pet.getId(),pet.getCreatedDate(),pet.getTypePet(),pet.getNamePet()
+                , pet.getBreed(), pet.getSex(), pet.getColor(), pet.getAge(), pet.getGrowth()
+                ,pet.getWeight(), pet.getNamePerson(), pet.getPhone(), pet.getEmail());
+    }
+
     //отобрасить список PetWithDownplayWeight
     public static List<PetWithDownplayWeight> getWithDownplayWeight(Collection<Pet> pets, double normalWeight){
         return getFilteredWithDownplayWeight(pets,LocalTime.MIN, LocalTime.MAX, Arrays.asList("Cat","Dog","Others"),normalWeight);

@@ -44,6 +44,11 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
+    public List<Pet> getAll() {
+        return petRepository.getAll();
+    }
+
+    @Override
     public Pet update(Pet pet, int userId) throws NotFoundException {
         return ValidationUtil.checkNotFoundWithId(petRepository.save(pet,userId),pet.getId());
     }

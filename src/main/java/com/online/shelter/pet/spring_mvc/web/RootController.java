@@ -29,7 +29,7 @@ public class RootController extends AbstractUserController{
 
     @GetMapping("/")
     public String root() {
-        return "redirect:pets";
+        return "redirect:petsAllUsers";
     }
 
     //    @Secured("ROLE_ADMIN")
@@ -47,6 +47,11 @@ public class RootController extends AbstractUserController{
     @GetMapping("/pets")
     public String pets() {
         return "pets";
+    }
+
+    @GetMapping("/petsAllUsers")
+    public String petsAllUsers() {
+        return "petsAllUsers";
     }
 
     @GetMapping("/profile")

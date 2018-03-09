@@ -14,7 +14,7 @@
         <h3><spring:message code="pet.title"/></h3>
 
         <div class="row">
-            <div class="col-sm-7">
+            <div class="col-sm-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <form class="form-horizontal" id="filter">
@@ -60,6 +60,29 @@
                     </div>
                 </div>
             </div>
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form class="form-group-sm">
+                            <div class="form-group">
+                                <a class="btn btn-info" href="users">users</a>
+                                <a class="btn btn-info" href="ajax/admin/users">ajax/admin/users</a>
+                                <a class="btn btn-info" href="rest/admin/users">rest/admin/users</a>
+                            </div>
+                            <div class="form-group">
+                                <a class="btn btn-info" href="pets">pets</a>
+                                <a class="btn btn-info" href="ajax/profile/pets">ajax/profile/pets</a>
+                                <a class="btn btn-info" href="rest/profile/pets">rest/profile/pets</a>
+                            </div>
+                            <div class="form-group">
+                                <a class="btn btn-info" href="petsAllUsers">petsAllUsers</a>
+                                <a class="btn btn-info" href="ajax/profile/petsAllUsers">/ajax/profile/petsAllUsers</a>
+                                <a class="btn btn-info" href="rest/profile/petsAllUsers">rest/profile/petsAllUsers</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
         <a class="btn btn-primary" onclick="add()">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -93,7 +116,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title" id="modalTitle"></h2>
+                <h2 class="modal-title" id="modalTitle"><spring:message code="pet.add"/></h2>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="detailsForm">
@@ -104,7 +127,7 @@
                                 code="pet.createdDate"/></label>
 
                         <div class="col-xs-9">
-                            <input class="form-control" id="createdDate" name="createdDate"
+                            <input type="datetime-local" class="form-control" id="createdDate" name="createdDate"
                                    placeholder="<spring:message code="pet.createdDate"/>">
                         </div>
                     </div>
@@ -125,7 +148,7 @@
 
                         <div class="col-xs-9">
                             <input type="text" class="form-control" id="namePet" name="namePet"
-                                    placeholder="<spring:message code="pet.namePet"/>">
+                                   placeholder="<spring:message code="pet.namePet"/>">
                         </div>
                     </div>
 

@@ -11,11 +11,13 @@
                 <li>
                     <sec:authorize access="isAuthenticated()">
                         <form:form class="navbar-form" action="logout" method="post">
+                            <a class="btn btn-info" href="petsAllUsers"> <spring:message code="app.petsAllUsers"/></a>
+                            <a class="btn btn-info" href="pets"> <spring:message code="app.pets"/></a>
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
                                 <a class="btn btn-info" href="users"><spring:message code="user.title"/></a>
                             </sec:authorize>
-                            <a class="btn btn-info" href="profile"><spring:message code="app.profile"/></a>
-                           <%-- <a class="btn btn-info" href="profile"><sec:authentication property="principal.userTo.name"/> <spring:message code="app.profile"/></a>--%>
+                            <%--   <a class="btn btn-info" href="profile"><sec:authentication property="principal.userTo.name"/> <spring:message code="app.profile"/></a>--%>
+                            <a class="btn btn-info" href="profile"> <spring:message code="app.profile"/></a>
                             <button class="btn btn-primary" type="submit">
                                 <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
                             </button>

@@ -19,6 +19,9 @@ public interface PetRepository {
     List<Pet> getAll(int userId);
 
     // ORDERED dateTime desc
+    List<Pet> getAll();
+
+    // ORDERED dateTime desc
     List<Pet> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId);
 
     default Pet getWithUser(int id, int userId) {

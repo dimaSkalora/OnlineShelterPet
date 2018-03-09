@@ -21,6 +21,8 @@ public interface PetService {
 
     List<Pet> getAll(int userId);
 
+    List<Pet> petsAllUsers();
+
     Pet update(Pet pet, int userId) throws NotFoundException;
 
     Pet create(Pet pet, int userId);

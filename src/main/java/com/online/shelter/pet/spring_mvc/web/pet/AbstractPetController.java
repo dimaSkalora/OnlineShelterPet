@@ -42,6 +42,12 @@ public class AbstractPetController {
         return PetsUtil.getWithDownplayWeight(service.getAll(userId), AuthorizedUser.getDownplayWeight());
     }
 
+    public List<Pet> petsAllUsers(){
+        log.info("petsAllUsers for user {}");
+        System.out.println("petsAllUsers for user {} "+PetsUtil.getPetAll(service.petsAllUsers()));
+        return PetsUtil.getPetAll(service.petsAllUsers());
+    }
+
     public Pet create(Pet pet) {
         int userId = AuthorizedUser.id();
         checkNew(pet);

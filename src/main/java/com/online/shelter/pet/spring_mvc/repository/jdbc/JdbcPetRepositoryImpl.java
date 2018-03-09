@@ -89,6 +89,12 @@ public class JdbcPetRepositoryImpl implements PetRepository {
     }
 
     @Override
+    public List<Pet> getAll() {
+        return jdbcTemplate.query(
+                "SELECT * FROM pets ORDER BY createddate DESC", ROW_MAPPER);
+    }
+
+    @Override
     public List<Pet> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
         return jdbcTemplate.query(
                 "SELECT * FROM pets WHERE user_id=?  AND createddate BETWEEN  ? AND ? ORDER BY createddate DESC",
