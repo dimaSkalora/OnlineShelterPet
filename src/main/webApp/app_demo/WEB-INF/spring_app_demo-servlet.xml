@@ -1,0 +1,173 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+              http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <import resource="spring-security.xml"/>
+
+    <security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"/>
+
+   <!-- <import resource="classpath:spring/spring-security.xml"/>-->
+
+    <!-- serve static resources (*.html, ...) from src/main/webapp/ -->
+    <mvc:default-servlet-handler/>
+
+    <mvc:interceptors>
+        <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="lang"/>
+        </bean>
+    </mvc:interceptors>
+
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="defaultLocale" value="ru"/>
+    </bean>
+
+
+
+
+    <bean class="app_demo.spring_mvc.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
+
+    <mvc:annotation-driven conversion-service="conversionService">
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper" ref="objectMapper"/>
+            </bean>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/plain;charset=UTF-8</value>
+                        <value>text/html;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+        <mvc:argument-resolvers>
+            <bean class="org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver "/>
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
+
+    <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversionService">
+        <property name="formatters">
+            <set>
+                <bean class="app_demo.spring_mvc.web.converter.DateTimeFormatters.LocalTimeFormatter"/>
+                <bean class="app_demo.spring_mvc.web.converter.DateTimeFormatters.LocalDateFormatter"/>
+            </set>
+        </property>
+    </bean>
+
+
+  <!--  <mvc:annotation-driven/>
+    <context:annotation-config/>-->
+
+    <context:component-scan base-package="app_demo.spring_mvc.**.web"/>
+    <context:component-scan base-package="app_demo.spring_mvc.**.service"/>
+    <context:component-scan base-package="app_demo.spring_mvc.**.repository.jdbc"/>
+
+    <!--  all resources inside folder src/main/webapp/resources are mapped so they can be referred to inside JSP files -->
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+
+    <!-- uses WebJars so Javascript and CSS libs can be declared as Maven dependencies (Bootstrap, jQuery...) -->
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+   <!-- <mvc:resources mapping="/webjars/**" location="/resources/webjars/"/>-->
+
+
+    <bean id="dataSource"
+             class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="url" value="jdbc:postgresql://localhost:5432/online_shelter_pet" />
+        <property name="username" value="user" />
+        <property name="password" value="password" />
+    </bean>
+<!--    <bean id="dataSource"
+                          class="org.apache.tomcat.jdbc.pool.DataSource">
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="url" value="jdbc:postgresql://localhost:5432/online_shelter_pet" />
+        <property name="username" value="user" />
+        <property name="password" value="password" />
+    </bean>-->
+
+
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+   <!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/WEB-INF/jsp/"
+          p:suffix=".jsp"/>-->
+     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/WEB-INF/ajax/"
+          p:suffix=".jsp"/>
+
+
+
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
+          p:cacheSeconds="5"
+          p:defaultEncoding="UTF-8">
+        <property name="basenames" value="file:///#{systemEnvironment['ONLINESHELTERPET_ROOT']}/config/messages/app"/>
+        <property name="fallbackToSystemLocale" value="false"/>
+    </bean>
+
+   <!-- <beans:beans xmlns="http://www.springframework.org/schema/security"
+                 xmlns:beans="http://www.springframework.org/schema/beans"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+        <http pattern="/resources/**" security="none"/>
+        <http pattern="/webjars/**" security="none"/>
+
+        <http pattern="/rest/**" use-expressions="true" name="restSecurityFilterChain" create-session="stateless">
+            <http-basic/>
+            <intercept-url pattern="/rest/admin/**" access="hasRole('ROLE_ADMIN')"/>
+            <intercept-url pattern="/**" access="isAuthenticated()"/>
+            <csrf disabled="true"/>
+        </http>
+
+        <beans:bean name="noopEncoder" class="org.springframework.security.crypto.password.NoOpPasswordEncoder"/>
+
+        <http>
+            <intercept-url pattern="/login" access="isAnonymous()"/>
+
+            <intercept-url pattern="/**/admin/**" access="hasRole('ROLE_ADMIN')"/>
+            <intercept-url pattern="/**" access="isAuthenticated()"/>
+
+            <form-login login-page="/login" default-target-url="/pets"
+                        authentication-failure-url="/login?error=true"
+                        login-processing-url="/spring_security_check"/>
+            <logout logout-success-url="/login"/>
+            <csrf disabled="true"/>
+        </http>
+
+        <authentication-manager>
+            <authentication-provider user-service-ref="userService">
+                <password-encoder ref="noopEncoder"/>
+                &lt;!&ndash;
+                            <jdbc-user-service data-source-ref="dataSource"
+                                               users-by-username-query="SELECT email, password, enabled FROM users WHERE email = ?"
+                                               authorities-by-username-query="
+                                                                       SELECT u.email, r.role FROM users u, user_roles r WHERE u.id = r.user_id AND u.email = ?"
+                            />
+                            <user-service>
+                                <user name="user@yandex.ru" password="password" authorities="ROLE_USER"/>
+                                <user name="admin@gmail.com" password="admin" authorities="ROLE_ADMIN"/>
+                            </user-service>
+                &ndash;&gt;
+            </authentication-provider>
+        </authentication-manager>
+    </beans:beans>-->
+</beans>

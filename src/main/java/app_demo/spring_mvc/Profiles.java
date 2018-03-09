@@ -1,0 +1,28 @@
+package app_demo.spring_mvc;
+
+public class Profiles {
+    public static final String JDBC = "jdbc";
+
+    public static final String REPOSITORY_IMPLEMENTATION = JDBC;
+
+    public static final String
+            POSTGRES_DB = "postgres",
+            HSQL_DB = "hsqldb";
+
+    public static final String ACTIVE_DB = HSQL_DB;
+
+    //  Get DB profile depending of DB driver in classpath
+    public static String getActiveDbProfile() {
+        try {
+            Class.forName("org.postgresql.Driver");
+            return POSTGRES_DB;
+        } catch (ClassNotFoundException ex) {
+            try {
+                Class.forName("org.hsqldb.jdbcDriver");
+                return com.online.shelter.pet.spring_mvc.Profiles.HSQL_DB;
+            } catch (ClassNotFoundException e) {
+                throw new IllegalStateException("Could not find DB driver");
+            }
+        }
+    }
+}
