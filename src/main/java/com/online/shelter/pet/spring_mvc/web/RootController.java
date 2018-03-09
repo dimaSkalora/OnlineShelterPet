@@ -45,7 +45,7 @@ public class RootController extends AbstractUserController{
     }
 
     @GetMapping("/pets")
-    public String meals() {
+    public String pets() {
         return "pets";
     }
 

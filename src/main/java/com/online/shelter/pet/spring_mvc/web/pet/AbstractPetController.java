@@ -38,7 +38,7 @@ public class AbstractPetController {
 
     public List<PetWithDownplayWeight> getAll() {
         int userId = AuthorizedUser.id();
-        log.info("getAll for user {}", userId);
+        log.info("petsAllUsers for user {}", userId);
         return PetsUtil.getWithDownplayWeight(service.getAll(userId), AuthorizedUser.getDownplayWeight());
     }
 

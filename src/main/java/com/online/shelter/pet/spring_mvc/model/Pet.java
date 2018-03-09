@@ -28,7 +28,7 @@ import java.time.LocalTime;
         "pets_unique_user_createddate_idx")})
 public class Pet extends AbstractBaseEntity{
 
-    public static final String ALL_SORTED = "Pet.getAll";
+    public static final String ALL_SORTED = "Pet.petsAllUsers";
     public static final String DELETE = "Pet.delete";
     public static final String GET_BETWEEN = "Pet.getBetween";
 
