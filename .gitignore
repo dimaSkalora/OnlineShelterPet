@@ -3,3 +3,6 @@ out
 target
 *.iml
 log
+app_demo
+app_demo_no_security
+app_demo_no-security
