@@ -68,6 +68,11 @@ public class InMemoryPetRepositoryImpl implements PetRepository {
     }
 
     @Override
+    public List<Pet> getAll() {
+        return null;
+    }
+
+    @Override
     public List<Pet> getBetween(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId) {
         Objects.requireNonNull(startDateTime);
         Objects.requireNonNull(endDateTime);

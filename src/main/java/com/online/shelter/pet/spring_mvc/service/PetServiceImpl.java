@@ -44,7 +44,7 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public List<Pet> getAll() {
+    public List<Pet> petsAllUsers() {
         return petRepository.getAll();
     }
 
