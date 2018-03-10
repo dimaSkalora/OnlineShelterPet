@@ -1,5 +1,4 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/52cfb40281b24f878124499f70da78bb)](https://app.codacy.com/app/dimaSkalora/OnlineShelterPet)
-[![Build Status](https://travis-ci.org/dimaSkalora/OnlineShelterPet.svg?branch=master)](https://travis-ci.org/dimaSkalora/OnlineShelterPet)
 
 Online Shelter Pet - Java Enterprise Online Project 
 ====================================================
