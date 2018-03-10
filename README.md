@@ -17,23 +17,23 @@ Online Shelter Pet - Java Enterprise Online Project
 
 ## <a href="description.md">Описание и план проекта</a>
 
-![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/imaage/login.jpg)
-![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/imaage/login_en.jpg)
+![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/image/login.jpg)
+![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/image/login_en.jpg)
 Регистрация пользователя
-![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/imaage/register.jpg)
-![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/imaage/register_en.jpg)
+![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/image/register.jpg)
+![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/image/register_en.jpg)
 Список домашних животных всех пользователей
-![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/imaage/petsAllUsers.jpg)
-![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/imaage/petsAllUsers_en.jpg)
+![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/image/petsAllUsers.jpg)
+![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/image/petsAllUsers_en.jpg)
 Список домашних животных пользователя
-![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/imaage/pets.jpg)
+![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/image/pets.jpg)
 Добавление домашнего животного
-![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/imaage/pets_add.jpg)
+![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/image/pets_add.jpg)
 Список пользователей
-![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/imaage/users.jpg)
+![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/image/users.jpg)
 Добавление пользователя
-![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/imaage/user_add.jpg)
+![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/image/user_add.jpg)
 REST users
-![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/imaage/OnlineShelterPet_rest_admin_users.jpg)
+![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/image/OnlineShelterPet_rest_admin_users.jpg)
 REST petsAllUsers
-![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/imaage/OnlineShelterPet_rest_profile_petsAllUsers.jpg)
+![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/image/OnlineShelterPet_rest_profile_petsAllUsers.jpg)
