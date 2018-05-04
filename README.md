@@ -32,7 +32,3 @@ Online Shelter Pet - Java Enterprise Online Project
 ![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/image/users.jpg)
 Добавление пользователя
 ![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/image/user_add.jpg)
-REST users
-![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/image/OnlineShelterPet_rest_admin_users.jpg)
-REST petsAllUsers
-![Image alt](https://github.com/dimaSkalora/OnlineShelterPet/blob/master/image/OnlineShelterPet_rest_profile_petsAllUsers.jpg)
